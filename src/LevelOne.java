@@ -20,11 +20,11 @@ public class LevelOne extends JPanel implements ActionListener{
     private BackGroundImageGrayMiddle background_image_gray_middle;
     private BackGroundImageBox background_image_box;
     private LightBrownDirtMiddle lightBrownDirtMiddleBlock;
-    private GrassLeft grassLeftBlock;
-    private GrassLeft grassLeftBlock1;
-    private GrassLeft grassLeftBlock2;
-    private GrassLeft grassLeftBlock3;
-    private GrassLeft grassLeftBlock4;
+    private GrassLeft grassLeftBlock; //one of the background shrubs sitting on the ground.
+    private GrassLeft grassLeftBlock1; //one of the background shrubs sitting on the ground.
+    private GrassLeft grassLeftBlock2; //one of the background shrubs sitting on the ground.
+    private GrassLeft grassLeftBlock3; //one of the background shrubs sitting on the ground.
+    private GrassLeft grassLeftBlock4; //one of the background shrubs sitting on the ground.
     private GreenTurtle greenTurtle;
     private RedTurtle redTurtle;
     private RedTurtle redTurtle2;
@@ -80,15 +80,15 @@ public class LevelOne extends JPanel implements ActionListener{
         background_image_gray_middle = new BackGroundImageGrayMiddle(0,0,50, 50);
         background_image_box = new BackGroundImageBox(0,0,50,50);
         lightBrownDirtMiddleBlock = new LightBrownDirtMiddle(0,0,50,50);
-        grassLeftBlock = new GrassLeft(150,150,50,50);
+        grassLeftBlock = new GrassLeft(150,150,50,50); //Creating a non-collidable object shrub .
         grassLeftBlock1 = new GrassLeft( 300, 300, 75, 75);
         grassLeftBlock2 = new GrassLeft( 800, 800, 50, 50);
         grassLeftBlock3 = new GrassLeft( 1350, 250, 65, 65);
         grassLeftBlock4 = new GrassLeft( 1230, 700, 50, 50);
 
         collision_box_list = new LinkedList<>();
-        greenTurtle = new GreenTurtle(1250,480,65,125);
-        greenTurtle.setIndexInLinkedList(5);
+        greenTurtle = new GreenTurtle(1250,480,65,125); //Creating green turtle at (1250, 480) with width 65 and height 125.
+        greenTurtle.setIndexInLinkedList(5); //Giving green turtle a specified index that it is located in the environment linked list.
         redTurtle = new RedTurtle(700,300,55,115);
         redTurtle.setIndexInLinkedList(16);
         redTurtle2 = new RedTurtle(700, 700, 55, 115);
@@ -96,8 +96,10 @@ public class LevelOne extends JPanel implements ActionListener{
         greenTurtleTopSide = new GreenTurtle(1300, 75, 65, 125);
         greenTurtleTopSide.setIndexInLinkedList(18);
         greenTurtleLowerSide = new GreenTurtle(1600, 655, 65, 125);
-        greenTurtleLowerSide.setIndexInLinkedList(19);
-        jungleSong = new JungleSong();
+        greenTurtleLowerSide.setIndexInLinkedList(19); //Giving green turtle a specified index that it is located in the environment linked list.
+        jungleSong = new JungleSong(); //Instantiating song that is played within level one.
+        //This event allows a thread to run the sound for level one. It needs to be in this format since
+        //swing is not thread safe.
         EventQueue.invokeLater(new Runnable(){
 
             public void run(){
@@ -199,10 +201,13 @@ public class LevelOne extends JPanel implements ActionListener{
     //Controls where the dynamic  collision boxes are on the map.
     public void actionPerformed(ActionEvent e){
 
+        //Runs to see if the static variable mario has collided with any of the boxes within this stage.
         if(checkCollision()){
-            GameControl.getMario().resetMarioPosition(Level.Levels.ONE);
+            GameControl.getMario().resetMarioPosition(Level.Levels.ONE); //resetting mario to level one position.
         }
 
+        //Checks to see if the static variable mario has collided with the red door on the bottom right side
+        //to change a flag (isLevelComplete) to true to allow the program to switch the game state to level two.
         if(GameControl.getMario().getCollisionRectangle().intersects(getVictoryBox())){
             GameControl.getMario().setMarioPosition(Level.Levels.TWO);
             jungleSong.stopSound();

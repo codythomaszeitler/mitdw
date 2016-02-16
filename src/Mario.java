@@ -23,50 +23,48 @@ public class Mario implements ActionListener{
     public void actionPerformed(ActionEvent e){
 
         if(mario_direction == Direction.STOP){
-
             //do nothing. This just keeps us from the error branch when starting the game/level.
         }
+        //User has hit the left arrow key. Mario is now moving left until collision or until an input that's not left is inputted.
         else if(mario_direction ==  Direction.LEFT){
             int x = getX() - GameControl.getDifficulty().getDifficulty();
             setX(x);
         }
+        //User has hit the right arrow key. Mario is now moving right until collision or until an input from user that is not right.
         else if(mario_direction ==  Direction.RIGHT){
             int x = getX() + GameControl.getDifficulty().getDifficulty();
             setX(x);
         }
+        //User has hit the down arrow key. Mario is now moving down until collision or until the user inputs something that isn't down.
         else if (mario_direction ==  Direction.DOWN){
             int y = getY() + GameControl.getDifficulty().getDifficulty();
             setY(y);
         }
+        //User has hit the up arrow key. Mario is now moving down until collision or until user inputs something different.
         else if (mario_direction == Direction.UP){
             int y = getY() - GameControl.getDifficulty().getDifficulty();
             setY(y);
         }
+        //Error branch, mario is not in one of his enumeration states.
         else {
+
             System.out.println("Error achieved while in actionPerformed mario_direction Mario object.");
             System.out.println("Printing mario direciton: " + getMarioDirection() );
         }
     }
-    private Rectangle collision_rectangle;
+    private Rectangle collision_rectangle; //mario's collision rectangle (dynamically changes to mario's position on screen)
 
-    int x_location;
-    int y_location;
+    int x_location; // x coordinate of mario
+    int y_location; // y coordinate of mario
 
-    int mario_width;
-    int mario_height;
+    int mario_width; //width of mario
+    int mario_height; //height of mario
 
+    private int frameCounter; //counts the number of frames that have passed since it the reset.
 
-    /*private boolean isGoingRight;
-    private boolean isGoingLeft;
-    private boolean isStandingRight;
-    private boolean isStandingLeft;
-    private boolean isGoingUp;
-    private boolean isGoingDown;*/
+    private Animation currentFrame; //what animation state mario is currently in.
 
-    private int frameCounter;
-
-    private Animation currentFrame;
-
+    //All of the possible animation states mario can be in.
     private enum Animation{
 
         WALKING_LEFT, WALKING_RIGHT, STANDING_RIGHT, STANDING_LEFT,
@@ -74,8 +72,43 @@ public class Mario implements ActionListener{
 
     }
 
-    public int[] getSLocations(){
+    /*
+    Returns an array of ints that has 4 elements within it.
+    This is to correspond to a drawImage with the following parameters.
+    drawImage(Image img, int dx1, int dy1, int dx2, int dy2,
+    int sx1, int sy1, int sx2, int sy2, ImageObserver observer)
 
+    Array[0] = sx1
+    Array[1] = sy1
+    Array[2] = sx2
+    Array[3] = sy2
+
+    These four coordinates make up a sub-image of the sprite sheet.
+    So if it's in STANDING_RIGHT enumeration animation, it will return the sub-image
+    coordinates within the array. Use these coordinates within the paint method
+    of the levels to properly paint mario in the correct animation.
+
+    This is an incredibly long but otherwise simple function.
+    Every five frames mario needs to change his animation based on what animation he is currently in.
+
+    If Walking_Left, the you should go to standing_left to give illusion of animation.
+    Vice versa.
+    So the formula is if Walking_X then it should change to Standing_X to give illusion of animation.
+    Or, if Standing_X, then it should change to Walking_X.
+    X can be any of the enumeration types listed in Animation within this class.
+
+    BUT if user inputs a different direction than the one mario is currently facing,
+    it will immediately change the frame to the standing position of the
+    direction that mario should now be moving.
+    So if mario is heading down, and the user inputs up, then the frame will now be
+    standing up.
+
+    AND if none of these conditions are met (not five frames have passed and no difference
+    in user input) then it will just return the frame that mario is currently on.
+
+     */
+
+    public int[] getSLocations(){
 
         frameCounter++;
 
