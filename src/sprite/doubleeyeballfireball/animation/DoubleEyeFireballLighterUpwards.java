@@ -5,6 +5,12 @@ import java.awt.*;
 /**
  * Created by Cody Thomas Zeitler on 12/17/2015.
  */
+/*
+This is a s location holding class.
+If you use the s locations with the corresponding sprite sheet to get the frame
+denoted by the object class name.
+
+ */
 public class DoubleEyeFireballLighterUpwards {
     private final int SX_1;
     public int getSX1(){return SX_1;}

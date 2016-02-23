@@ -48,6 +48,11 @@ public class LevelThree extends JPanel implements ActionListener, Runnable{
     private DoubleEyeFireball secondDoubleEyeFireball; //second to most left fireball.
     private DoubleEyeFireball thirdDoubleEyeFireball; //third to most left fireball.
 
+    //All thwomps in level three.
+    private LinkedList<Thwomp> thwompLinkedList;
+    private Thwomp thwomp;
+
+
     public LevelThree(){
 
         GameControl.getMario().setMarioPosition(Level.Levels.THREE);
@@ -67,6 +72,8 @@ public class LevelThree extends JPanel implements ActionListener, Runnable{
         thirdDoubleEyeFireball.setBottomY(1100); //shows the lowest part of the y axis the fire ball will travel.
         thirdDoubleEyeFireball.setTopY(-100);//shows the highest part of the y axis the fire ball will travel.
         thirdDoubleEyeFireball.setSpeedOfFireball(13);//sets how fast the fireball moves.
+
+        thwomp = new Thwomp(2800, 0, 250, 250);
 
         greenTurtle = new GreenTurtle(500,500,50,50); //Instantiating green turtle into memory.
 
@@ -184,6 +191,7 @@ public class LevelThree extends JPanel implements ActionListener, Runnable{
         gameLoop.addActionListener(doubleEyeFireball);
         gameLoop.addActionListener(secondDoubleEyeFireball);
         gameLoop.addActionListener(thirdDoubleEyeFireball);
+        gameLoop.addActionListener(thwomp);
     }
     /*
     return gameLoop(timer) associated with the LevelThree object.
@@ -248,6 +256,11 @@ public class LevelThree extends JPanel implements ActionListener, Runnable{
         if(GameControl.getMario().getCollisionRectangle().intersects(thirdDoubleEyeFireball.getCollisionBox())){
             return true;
         }
+        //Checks to see if mario intersects the very left most thwomp.
+        if(GameControl.getMario().getCollisionRectangle().intersects(thwomp.getBounds())){
+            return true;
+        }
+
         return false; //Mario didn't touch anything he wasn't suppposed to.
 
     }
@@ -288,12 +301,13 @@ public class LevelThree extends JPanel implements ActionListener, Runnable{
         doubleEyeFireball.setX(doubleEyeFireball.getX() + total_origin_x_moved);
         secondDoubleEyeFireball.setX(secondDoubleEyeFireball.getX() + total_origin_x_moved);
         thirdDoubleEyeFireball.setX(thirdDoubleEyeFireball.getX() + total_origin_x_moved);
+        thwomp.setDx1(thwomp.getDx1() + total_origin_x_moved);
         total_origin_x_moved = 0;
         frameCounter = 0;
     }
 
     public void actionPerformed(ActionEvent e){
-        if(frameCounter >= 180) {
+        if(frameCounter >= 180 && frameCounter < 1450) {
             GameControl.getMario().setX(GameControl.getMario().getX() + screenScrollSpeed);
         }
         EventQueue.invokeLater(this); //creates a thread to update all elements within the level. (swing is not thread safe, therefore this EventQueue.invokeLater(this) is needed.
@@ -311,7 +325,9 @@ public class LevelThree extends JPanel implements ActionListener, Runnable{
 
         //Once it has been 3 seconds (60 frames in 1 seconds 180 frames is therefore 3 seconds)
         //start moving every element in level three.
-        if(frameCounter >= 180) {
+
+
+        if(frameCounter >= 180 && frameCounter < 1450) {
 
             //Start moving bottom red lava.
             ListIterator<RedLava> iterator = (ListIterator<RedLava>) bottomRedLavaLinkedList.iterator();
@@ -346,8 +362,12 @@ public class LevelThree extends JPanel implements ActionListener, Runnable{
             secondDoubleEyeFireball.setX(secondDoubleEyeFireball.getX() + screenScrollSpeed);
             thirdDoubleEyeFireball.setX(thirdDoubleEyeFireball.getX() + screenScrollSpeed);
 
+            thwomp.setDx1(thwomp.getDx1() + screenScrollSpeed);
+
             total_origin_x_moved -= screenScrollSpeed;
         }
+
+
     }
 
     public void paintComponent(Graphics g){
@@ -407,6 +427,17 @@ public class LevelThree extends JPanel implements ActionListener, Runnable{
                 s_third_double_eye_fireball[0], s_third_double_eye_fireball[1],
                 s_third_double_eye_fireball[2], s_third_double_eye_fireball[3],
                 null);
+
+        //Drawing all thwomps.
+        int[] s_thwomp_s_locations = thwomp.getSLocations();
+
+        g.drawImage(thwomp.getAssociatedSpriteSheet(),
+                thwomp.getDx1(), thwomp.getDy1(),
+                thwomp.getDx2(), thwomp.getDy2(),
+                s_thwomp_s_locations[0], s_thwomp_s_locations[1],
+                s_thwomp_s_locations[2], s_thwomp_s_locations[3],
+                null);
+
 
         //Drawing all red lava.
 

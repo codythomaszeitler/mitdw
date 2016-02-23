@@ -63,13 +63,19 @@ public class GameControl implements ActionListener, KeyListener {
         //Instantiating life object, this is what's displayed ON SCREEN on the top left corner.
         currentLifes = new Life();
 
-        levelOne = new LevelOne(); //Instantiating level one object.
+        /*levelOne = new LevelOne(); //Instantiating level one object.
         currentLevel = new Level(Level.Levels.ONE); //Setting current level to level one.
         currentLevel.setCurrentLevel(levelOne.getCurrentLevel()); //set current level one. (this seems redundant).
         mainGameFrame.add(levelOne); //Adding the level one jPanel to the main game frame.
         timer = levelOne.getTimer(); //Retrieving timer from level one object.
         timer.addActionListener(mario); //Adding mario actionListener to timer so mario data is updated every timer clock cycle.
-        timer.addActionListener(this); //Repaint and level completion actionListener.
+        timer.addActionListener(this); //Repaint and level completion actionListener.*/
+
+        currentLevel = new Level(Level.Levels.THREE);
+        initializeLevelThree();
+        mainGameFrame.add(levelThree);
+
+
 
         //Setting frame so the user can see it. This should be called after the JPanels are added so  you don't
         //get a blank screen.

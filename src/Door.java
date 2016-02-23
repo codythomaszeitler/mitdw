@@ -41,11 +41,10 @@ public class Door extends Rectangle {
     public void setDy2(int dy2){this.dy2 = dy2;}
     public int getDy2(){return y + height;}
 
-    //0, 192 ---- 15, 223
     public Door(int x, int y, int width, int height){
-        SX1 = 0; // 37
+        SX1 = 0;
         SY1 = 192;
-        SX2 = 15; // 20
+        SX2 = 15;
         SY2 = 223;
 
         setDx1(x);

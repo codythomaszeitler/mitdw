@@ -4,6 +4,7 @@ package sprite.box.onoff;
  * Created by Cody Thomas Zeitler on 12/15/2015.
  */
 public class OffBox {
+
     private final int SX_1;
     public int getSX1(){return SX_1;}
     private final int SY_1;
@@ -45,7 +46,6 @@ public class OffBox {
     public int getDy2(){return dy2;}
     public void setDy2(int dy2){this.dy2 = dy2;}
 
-    //64, 160 --- 80, 176
 
     public OffBox(int x, int y, int width, int height){
 
@@ -54,8 +54,8 @@ public class OffBox {
         this.width = width;
         this.height = height;
 
-        SX_1 = 64; // 52
-        SY_1 = 160; // 39
+        SX_1 = 64;
+        SY_1 = 160;
         SX_2 = 80;
         SY_2 = 176;
 

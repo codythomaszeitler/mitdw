@@ -55,7 +55,7 @@ public class GrayRock {
     public int getDy2(){return y + height;}
     public void setDy2(int dy2){this.dy2 = dy2;}
 
-    //308 193 --- 339, 224
+
     public GrayRock(int x, int y, int width, int height){
 
         this.x = x;
@@ -63,8 +63,8 @@ public class GrayRock {
         this.width = width;
         this.height = height;
 
-        SX_1 = 308; // 52
-        SY_1 = 193; // 39
+        SX_1 = 308;
+        SY_1 = 193;
         SX_2 = 340;
         SY_2 = 225;
 

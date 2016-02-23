@@ -3,6 +3,12 @@ package animation.mario;
 /**
  * Created by Cody Thomas Zeitler on 12/11/2015.
  */
+/*
+This is a s location holding class.
+If you use the s locations with the corresponding sprite sheet to get the frame
+denoted by the object class name.
+
+ */
 public class MarioWalkingDown {
 
 
