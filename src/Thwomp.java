@@ -70,9 +70,9 @@ public class Thwomp extends Rectangle implements ActionListener{
         this.width = width;
         this.height = height;
 
-        thwompDropDifferential = height *  2; //the standard drop differential is 2 times the height
+        thwompDropDifferential = GameControl.getMainGameFrame().getHeight() - height; //the standard drop differential is 2 times the height
         dropSpeed = 1;
-        thwompDropRectangle = new Rectangle(x - width, thwompDropDifferential, 3 * width, height);
+        thwompDropRectangle = new Rectangle(x - width, height, 3 * width, thwompDropDifferential);
         setBounds(x,y,width,height);
 
         current_frame = Animation.SITTING; //Starting frame of thwomp.
@@ -97,8 +97,6 @@ public class Thwomp extends Rectangle implements ActionListener{
     public void actionPerformed(ActionEvent e){
 
 
-        System.out.println("Reset_y_coordinate: " + reset_y_coordinate);
-        System.out.println(getDy1());
 
 
         //If mario intersects the space that will trigger the thwomp to drop.
@@ -186,7 +184,9 @@ public class Thwomp extends Rectangle implements ActionListener{
     public int dx1;
     public int getDx1(){return dx1;}
     public void setDx1(int dx1){
-        setThwompDropRectangle(new Rectangle(dx1 - width, thwompDropDifferential, 3 * width, height));
+
+
+        setThwompDropRectangle(new Rectangle(dx1 - width, height, 3 * width, thwompDropDifferential));
         dx2 = dx1 + width;
         setBounds(dx1, dy1, width, height);
         this.dx1 = dx1;
@@ -198,7 +198,7 @@ public class Thwomp extends Rectangle implements ActionListener{
     public int dy1;
     public int getDy1(){return dy1;}
     public void setDy1(int dy1){
-        setThwompDropRectangle(new Rectangle(x - width, thwompDropDifferential + dy1, 3 * width, height));
+        //setThwompDropRectangle(new Rectangle(x - width, thwompDropDifferential + dy1, 3 * width, height));
         dy2 = dy1 + height;
         setBounds(dx1, dy1, width, height);
         this.dy1 = dy1;
@@ -227,7 +227,4 @@ public class Thwomp extends Rectangle implements ActionListener{
         setBounds(dx1, dy1, width, height);
         this.dy2 = dy2;
     }
-
-
-
 }

@@ -73,7 +73,7 @@ public class LevelThree extends JPanel implements ActionListener, Runnable{
         thirdDoubleEyeFireball.setTopY(-100);//shows the highest part of the y axis the fire ball will travel.
         thirdDoubleEyeFireball.setSpeedOfFireball(13);//sets how fast the fireball moves.
 
-        thwomp = new Thwomp(2800, 0, 250, 250);
+        thwomp = new Thwomp(3000, 0, 250, 250);
 
         greenTurtle = new GreenTurtle(500,500,50,50); //Instantiating green turtle into memory.
 
