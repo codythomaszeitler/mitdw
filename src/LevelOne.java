@@ -31,6 +31,10 @@ public class LevelOne extends JPanel implements ActionListener{
     private GreenTurtle greenTurtleTopSide;
     private GreenTurtle greenTurtleLowerSide;
     private JungleSong jungleSong;
+    public JungleSong getJungleSong(){
+        return jungleSong;
+    }
+    private EvilJestSound evilJestSound;
     private int songLoopCounter;
     private boolean hasPlayedOnce = false;
 
@@ -98,6 +102,7 @@ public class LevelOne extends JPanel implements ActionListener{
         greenTurtleLowerSide = new GreenTurtle(1600, 655, 65, 125);
         greenTurtleLowerSide.setIndexInLinkedList(19); //Giving green turtle a specified index that it is located in the environment linked list.
         jungleSong = new JungleSong(); //Instantiating song that is played within level one.
+        evilJestSound = new EvilJestSound();
         //This event allows a thread to run the sound for level one. It needs to be in this format since
         //swing is not thread safe.
         EventQueue.invokeLater(new Runnable(){
@@ -201,16 +206,27 @@ public class LevelOne extends JPanel implements ActionListener{
     //Controls where the dynamic  collision boxes are on the map.
     public void actionPerformed(ActionEvent e){
 
-        //Runs to see if the static variable mario has collided with any of the boxes within this stage.
-        if(checkCollision()){
-            GameControl.getMario().resetMarioPosition(Level.Levels.ONE); //resetting mario to level one position.
+        if(!isLevelComplete) {
+            //Runs to see if the static variable mario has collided with any of the boxes within this stage.
+            if (checkCollision()) {
+                lives.setNumberOfLives(lives.getNumberOfLives() - 1);
+
+
+                EventQueue.invokeLater(new Runnable() {
+
+                    public void run() {
+                        evilJestSound.playSound();
+                    }
+
+                });
+                GameControl.getMario().resetMarioPosition(Level.Levels.ONE); //resetting mario to level one position.
+            }
         }
 
         //Checks to see if the static variable mario has collided with the red door on the bottom right side
         //to change a flag (isLevelComplete) to true to allow the program to switch the game state to level two.
         if(GameControl.getMario().getCollisionRectangle().intersects(getVictoryBox())){
-            GameControl.getMario().setMarioPosition(Level.Levels.TWO);
-            jungleSong.stopSound();
+            //GameControl.getMario().setMarioPosition(Level.Levels.TWO);
             isLevelComplete = true;
         }
 

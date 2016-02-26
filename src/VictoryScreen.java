@@ -9,26 +9,39 @@ import java.awt.event.ActionListener;
 public class VictoryScreen extends JPanel implements ActionListener {
 
     private  Timer timer;
-    public  Timer getTimer(){
+    private LivelyMeadowSong livelyMeadowSong;
+    public LivelyMeadowSong getLivelyMeadowSong(){
+        return livelyMeadowSong;
+    }
 
-        timer = new Timer(1000/60, new VictoryScreen());
+    public VictoryScreen(){
+        livelyMeadowSong = new LivelyMeadowSong();
 
+        EventQueue.invokeLater(new Runnable() {
 
-        return timer;
+            public void run() {
+                livelyMeadowSong.playSound();
+            }
+
+        });
+
 
 
 
     }
 
-    public void actionPerformed(ActionEvent e){
+    public  Timer getTimer(){
 
+        timer = new Timer(1000/60, new VictoryScreen());
+        return timer;
+
+    }
+
+    public void actionPerformed(ActionEvent e){
 
         System.out.println("Timer in victory screen has been fired.");
 
-
         GameControl.getMainGameFrame().repaint();
-
-
 
     }
 

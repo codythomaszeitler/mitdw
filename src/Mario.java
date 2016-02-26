@@ -355,8 +355,8 @@ public class Mario implements ActionListener{
 
         if(level == Level.Levels.ONE){
 
-            setX(75);
-            setY(75);
+            setX(125);
+            setY(125);
             mario_direction = Direction.STOP;
         }
         if(level == Level.Levels.TWO){

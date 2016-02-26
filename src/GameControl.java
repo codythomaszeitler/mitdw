@@ -48,6 +48,9 @@ public class GameControl implements ActionListener, KeyListener {
     private LevelTwo levelTwo; //level two object.
     private LevelThree levelThree; //level three object.
     private Timer timer; //main game timer, activates every 1000 / 60 ms, a.k.a 60 frames per second.
+    private VictoryScreen victoryScreen;
+    private Life lives;
+    private LossScreen lossScreen;
 
 
     public GameControl() {
@@ -63,17 +66,18 @@ public class GameControl implements ActionListener, KeyListener {
         //Instantiating life object, this is what's displayed ON SCREEN on the top left corner.
         currentLifes = new Life();
 
-        /*levelOne = new LevelOne(); //Instantiating level one object.
+        levelOne = new LevelOne(); //Instantiating level one object.
         currentLevel = new Level(Level.Levels.ONE); //Setting current level to level one.
         currentLevel.setCurrentLevel(levelOne.getCurrentLevel()); //set current level one. (this seems redundant).
         mainGameFrame.add(levelOne); //Adding the level one jPanel to the main game frame.
         timer = levelOne.getTimer(); //Retrieving timer from level one object.
         timer.addActionListener(mario); //Adding mario actionListener to timer so mario data is updated every timer clock cycle.
-        timer.addActionListener(this); //Repaint and level completion actionListener.*/
+        timer.addActionListener(this); //Repaint and level completion actionListener.
 
-        currentLevel = new Level(Level.Levels.THREE);
+        /*currentLevel = new Level(Level.Levels.THREE);
         initializeLevelThree();
-        mainGameFrame.add(levelThree);
+        mainGameFrame.add(levelThree);*/
+
 
 
 
@@ -121,16 +125,57 @@ public class GameControl implements ActionListener, KeyListener {
     //should update whatever is on the screen. (NOTE not force).
     public void actionPerformed(ActionEvent e){
 
+        if(lives.getNumberOfLives() == 0){
+            timer.stop();
+            lossScreen = new LossScreen();
+
+            if(currentLevel.getCurrentLevel() == Level.Levels.ONE){
+
+                levelOne.getJungleSong().stopSound();
+                mainGameFrame.remove(levelOne);
+                mainGameFrame.revalidate();
+                mainGameFrame.add(lossScreen);
+                mainGameFrame.revalidate();
+                mainGameFrame.repaint();
+                timer.start();
+            }
+            else if(currentLevel.getCurrentLevel() == Level.Levels.TWO){
+                levelTwo.getMushroomDanceSong().stopSound();
+                mainGameFrame.remove(levelTwo);
+                mainGameFrame.revalidate();
+                mainGameFrame.add(lossScreen);
+                mainGameFrame.revalidate();
+                mainGameFrame.repaint();
+                timer.start();
+            }
+            else if(currentLevel.getCurrentLevel() == Level.Levels.THREE){
+                levelThree.getSwordFightSong().stopSound();
+                mainGameFrame.remove(levelThree);
+                mainGameFrame.revalidate();
+                mainGameFrame.add(lossScreen);
+                mainGameFrame.revalidate();
+                mainGameFrame.repaint();
+                timer.start();
+            }
+            else {
+                System.out.println("ERROR BRANCH IN ACTION PERFROMED OF GAME CONTROL");
+            }
+
+
+        }
+
         //If the current level of the game is level one, enter here.
         if(currentLevel.getCurrentLevel() == Level.Levels.ONE) {
             //Enters here when a boolean flag has been activated once level one has been completed. (getIsLevelComplete)
             //This flag is set once mario enters the door of level one.
             if (levelOne.getIsLevelComplete() && currentLevel.getCurrentLevel() == Level.Levels.ONE) {
 
+                levelOne.getJungleSong().stopSound();
                 timer.stop(); //stops the current main game timer.
                 initializeLevelTwo(); //private function that sets up level two.
                 mainGameFrame.remove(levelOne); //removes level one from the main frame.
                 mainGameFrame.revalidate(); //needed to switch between two jPanels
+                mario.setMarioPosition(Level.Levels.TWO);
                 mainGameFrame.add(levelTwo); //puts level two into the frame.
                 mainGameFrame.revalidate(); //needed to switch between two jPanels
                 mainGameFrame.repaint(); //forces the frame to display something (well not force, but suggests it to the swing architecture)
@@ -142,18 +187,36 @@ public class GameControl implements ActionListener, KeyListener {
             //Enters here when a boolean flag has been activated once level two has been completed. (getIsLevelComplete)
             //This flag is set once mario enters the end door of level two.
             if (levelTwo.getIsLevelComplete()) {
-
+                mario.setMarioPosition(Level.Levels.THREE);
+                levelTwo.getMushroomDanceSong().stopSound();
                 timer.stop(); //stops the current main game timer.
                 initializeLevelThree(); //private function that sets up level three.
                 mainGameFrame.remove(levelTwo); //removes level two from the main frame.
                 mainGameFrame.revalidate(); //needs to switch between two jPanels
                 mainGameFrame.add(levelThree); //puts level three into the frame.
+
                 mainGameFrame.revalidate(); //needs to switch between two jPanels.
                 mainGameFrame.repaint(); //suggest heavily to the swing architecture that it should repaint on the EDT.
                 timer.start(); //starts the timer associated with level three. The timer is updated within initializeLevelThree().
             }
         }
+        if(currentLevel.getCurrentLevel() == Level.Levels.THREE){
 
+            if(levelThree.getIsLevelComplete()){
+
+                currentLevel.setCurrentLevel(Level.Levels.VICTORY);
+
+                levelThree.getSwordFightSong().stopSound();
+                timer.stop();
+                victoryScreen = new VictoryScreen();
+                mainGameFrame.remove(levelThree);
+                mainGameFrame.revalidate();
+                mainGameFrame.add(victoryScreen);
+                mainGameFrame.revalidate();
+                mainGameFrame.repaint();
+                timer.start();
+            }
+        }
         mainGameFrame.repaint(); //updates the main game frame.
 
     }

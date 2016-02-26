@@ -73,6 +73,10 @@ public class LevelTwo extends JPanel implements ActionListener{
 
     //sound object that is playing during the level.
     private MushroomDanceSong mushroomDanceSong;
+    public MushroomDanceSong getMushroomDanceSong(){
+        return mushroomDanceSong;
+    }
+    private EvilJestSound evilJestSound;
 
 
     private Timer levelTwoGameLoop;
@@ -192,6 +196,7 @@ public class LevelTwo extends JPanel implements ActionListener{
 
         //Initializing sound object.
         mushroomDanceSong = new MushroomDanceSong();
+        evilJestSound = new EvilJestSound();
         EventQueue.invokeLater(new Runnable(){
 
             public void run(){
@@ -272,6 +277,15 @@ public class LevelTwo extends JPanel implements ActionListener{
             CollisionBox temp = iterator.next();
 
             if(temp.intersects(GameControl.getMario().getCollisionRectangle())){
+                lives.setNumberOfLives(lives.getNumberOfLives() - 1);
+                EventQueue.invokeLater(new Runnable(){
+
+                    public void run(){
+                        evilJestSound.playSound();
+                    }
+
+                });
+
                 return true;
             }
         }
@@ -503,12 +517,16 @@ public class LevelTwo extends JPanel implements ActionListener{
                 new CollisionBox(bottomPatrollingKoopa.getCollisionRectangle()));
 
 
-        if(checkCollision()){
-            onOffBoxList.setAllOff();
-            redExclamationBoxList.setAllFilled();
-            GameControl.getMario().resetMarioPosition(Level.Levels.TWO);
+        if(!isLevelComplete) {
+            if (checkCollision()) {
+                onOffBoxList.setAllOff();
+                redExclamationBoxList.setAllFilled();
+                GameControl.getMario().resetMarioPosition(Level.Levels.TWO);
+            }
         }
         if(GameControl.getMario().getCollisionRectangle().intersects(redBossDoor.getVictoryBox())){
+            onOffBoxList.setAllOff();
+            redExclamationBoxList.setAllFilled();
             isLevelComplete = true;
         }
 

@@ -6,7 +6,7 @@ import java.awt.Font;
 
 public class Life {
 
-    private static int number_of_lives; //how many lives mario has left.
+    private static int number_of_lives = 10; ; //how many lives mario has left.
     /*
     Gets the string that is to printed on the top most left of the game screen e.g: "Lives Remaining: " + number of lives remaining.
      */
@@ -58,7 +58,7 @@ public class Life {
     Creates a new font object with PLAIN printing and size of 50.
      */
     public Life(){
-        number_of_lives = 100; //Mario starts with 99 lives. (this may or may not be changed to reflect difficulty in later patches.
+        //number_of_lives = 100; //Mario starts with 99 lives. (this may or may not be changed to reflect difficulty in later patches.
         lives_remaining = "Lives Remaining: " + number_of_lives; //creating string with concatentation of the initial amount of lives.
         font = new Font("LIVES REMAINING", Font.PLAIN, 50); //Sets to plain text and sets size to 50
     }

@@ -5,7 +5,7 @@ public class Level {
 
     public enum Levels{
 
-        ONE,TWO,THREE,FOUR,FIVE,SIX,SEVEN,EIGHT,NINE,TEN,ELEVEN;
+        ONE,TWO,THREE,FOUR,FIVE,SIX,SEVEN,EIGHT,NINE,TEN,ELEVEN, VICTORY;
 
     }
 

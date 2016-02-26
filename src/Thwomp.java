@@ -188,7 +188,7 @@ public class Thwomp extends Rectangle implements ActionListener{
 
         setThwompDropRectangle(new Rectangle(dx1 - width, height, 3 * width, thwompDropDifferential));
         dx2 = dx1 + width;
-        setBounds(dx1, dy1, width, height);
+        setBounds(dx1, y, width, height);
         this.dx1 = dx1;
     }
 

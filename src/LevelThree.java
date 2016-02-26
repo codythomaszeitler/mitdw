@@ -3,6 +3,7 @@ import sprite.RedLava;
 import sprite.RedLavaFlipped;
 import sprite.doubleeyeballfireball.DoubleEyeFireball;
 import sprite.tile.DarkGrayCastleMiddleTile;
+import spritesheet.CastleFortressSpriteSheet;
 import spritesheet.MarioSpriteSheet;
 
 import javax.swing.*;
@@ -50,12 +51,28 @@ public class LevelThree extends JPanel implements ActionListener, Runnable{
 
     //All thwomps in level three.
     private LinkedList<Thwomp> thwompLinkedList;
-    private Thwomp thwomp;
+    private Thwomp firstThwomp; //leftmost thwomp
+    private Thwomp secondThwomp; //second to left most thwmop.
+    private Thwomp thirdThwomp; //right most thwomp.
+
+    private SwordFightSong swordFightSong;
+    private EvilJestSound evilJestSound;
+    public SwordFightSong getSwordFightSong(){
+        return swordFightSong;
+    }
+    private Level.Levels current_level;
+    private Life lives;
+    private LevelTitle levelTitle;
+
+    private RedBossDoor redBossDoor;
+    private boolean isLevelComplete;
+    public boolean getIsLevelComplete(){
+        return isLevelComplete;
+    }
 
 
     public LevelThree(){
 
-        GameControl.getMario().setMarioPosition(Level.Levels.THREE);
 
         //Creating double eye fireball on the furthest left side.
         doubleEyeFireball = new DoubleEyeFireball(1175,0, 90, 90, true);
@@ -73,18 +90,40 @@ public class LevelThree extends JPanel implements ActionListener, Runnable{
         thirdDoubleEyeFireball.setTopY(-100);//shows the highest part of the y axis the fire ball will travel.
         thirdDoubleEyeFireball.setSpeedOfFireball(13);//sets how fast the fireball moves.
 
-        thwomp = new Thwomp(3000, 0, 250, 250);
+        firstThwomp = new Thwomp(3000, 0, 250, 250);
+        secondThwomp = new Thwomp(3450, 0, 250, 250);
+        thirdThwomp = new Thwomp(3900, 0, 250, 250);
 
         greenTurtle = new GreenTurtle(500,500,50,50); //Instantiating green turtle into memory.
 
         backgroundList = new LinkedList<>(); //Linked list that will paint all the background tiles.
 
+        redBossDoor = new RedBossDoor(4275, 100, 125, 200);
+
+        isLevelComplete = false;
+        //Initializing sound object.
+        swordFightSong = new SwordFightSong();
+        evilJestSound = new EvilJestSound();
+
+        EventQueue.invokeLater(new Runnable(){
+
+            public void run(){
+                swordFightSong.playSound();
+            }
+
+        });
+        levelTitle = new LevelTitle(500, 38, 50, "Insidious Inferno");
+
+        current_level = Level.Levels.THREE;
+        lives = new Life();
+        lives.setX(2);
+        lives.setY(38);
         /*
         Creating all background tile objects. This will be painted in
         the paintComponent function.
         */
         for(int z = 0; z < GameControl.getMainGameFrame().getHeight() ; z = z +  50) {
-            for (int i = 0; i < 10000; i = i +  50 ) {
+            for (int i = 0; i < GameControl.getMainGameFrame().getWidth() + 2550; i = i +  50 ) {
 
                 background = new DarkGrayCastleMiddleTile(i, z, 50, 50);
                 backgroundList.add(background);
@@ -170,6 +209,88 @@ public class LevelThree extends JPanel implements ActionListener, Runnable{
         grayRock = new GrayRock(2150,800,250,250);
         grayRockLinkedList.add(grayRock);
 
+        //Rocks on the stopped screen.
+        grayRock = new GrayRock(2750, 675, 75, 75);
+        grayRockLinkedList.add(grayRock);
+        grayRock = new GrayRock(2825, 675, 75, 75);
+        grayRockLinkedList.add(grayRock);
+        grayRock = new GrayRock(2900, 675, 75, 75);
+        grayRockLinkedList.add(grayRock);
+        grayRock = new GrayRock(2975, 675, 75, 75);
+        grayRockLinkedList.add(grayRock);
+        grayRock = new GrayRock(3050, 675, 75, 75);
+        grayRockLinkedList.add(grayRock);
+        grayRock = new GrayRock(3125, 675, 75, 75);
+        grayRockLinkedList.add(grayRock);
+        grayRock = new GrayRock(3200, 675, 75, 75);
+        grayRockLinkedList.add(grayRock);
+        grayRock = new GrayRock(3275, 675, 75, 75);
+        grayRockLinkedList.add(grayRock);
+        grayRock = new GrayRock(3350, 675, 75, 75);
+        grayRockLinkedList.add(grayRock);
+        grayRock = new GrayRock(3425, 675, 75, 75);
+        grayRockLinkedList.add(grayRock);
+        grayRock = new GrayRock(3500, 675, 75, 75);
+        grayRockLinkedList.add(grayRock);
+        grayRock = new GrayRock(3575, 675, 75, 75);
+        grayRockLinkedList.add(grayRock);
+        grayRock = new GrayRock(3650, 675, 75, 75);
+        grayRockLinkedList.add(grayRock);
+        grayRock = new GrayRock(3725, 675, 75, 75);
+        grayRockLinkedList.add(grayRock);
+        grayRock = new GrayRock(3800, 675, 75, 75);
+        grayRockLinkedList.add(grayRock);
+        grayRock = new GrayRock(3875, 675, 75, 75);
+        grayRockLinkedList.add(grayRock);
+        grayRock = new GrayRock(3950, 675, 75, 75);
+        grayRockLinkedList.add(grayRock);
+        grayRock = new GrayRock(4025, 675, 75, 75);
+        grayRockLinkedList.add(grayRock);
+        grayRock = new GrayRock(4100, 675, 75, 75);
+        grayRockLinkedList.add(grayRock);
+
+
+
+        grayRock = new GrayRock(3050, 325, 75, 75);
+        grayRockLinkedList.add(grayRock);
+        grayRock = new GrayRock(3125, 325, 75, 75);
+        grayRockLinkedList.add(grayRock);
+        grayRock = new GrayRock(3200, 325, 75, 75);
+        grayRockLinkedList.add(grayRock);
+        grayRock = new GrayRock(3275, 325, 75, 75);
+        grayRockLinkedList.add(grayRock);
+        grayRock = new GrayRock(3350, 325, 75, 75);
+        grayRockLinkedList.add(grayRock);
+        grayRock = new GrayRock(3425, 325, 75, 75);
+        grayRockLinkedList.add(grayRock);
+        grayRock = new GrayRock(3500, 325, 75, 75);
+        grayRockLinkedList.add(grayRock);
+        grayRock = new GrayRock(3575, 325, 75, 75);
+        grayRockLinkedList.add(grayRock);
+        grayRock = new GrayRock(3650, 325, 75, 75);
+        grayRockLinkedList.add(grayRock);
+        grayRock = new GrayRock(3725, 325, 75, 75);
+        grayRockLinkedList.add(grayRock);
+        grayRock = new GrayRock(3800, 325, 75, 75);
+        grayRockLinkedList.add(grayRock);
+        grayRock = new GrayRock(3875, 325, 75, 75);
+        grayRockLinkedList.add(grayRock);
+        grayRock = new GrayRock(3950, 325, 75, 75);
+        grayRockLinkedList.add(grayRock);
+        grayRock = new GrayRock(4025, 325, 75, 75);
+        grayRockLinkedList.add(grayRock);
+        grayRock = new GrayRock(4100, 325, 75, 75);
+        grayRockLinkedList.add(grayRock);
+        grayRock = new GrayRock(4175, 325, 75, 75);
+        grayRockLinkedList.add(grayRock);
+        grayRock = new GrayRock(4250, 325, 75, 75);
+        grayRockLinkedList.add(grayRock);
+        grayRock = new GrayRock(4325, 325, 75, 75);
+        grayRockLinkedList.add(grayRock);
+        grayRock = new GrayRock(4400, 325, 75, 75);
+        grayRockLinkedList.add(grayRock);
+
+
         screenScrollSpeed = -2; //how fast the screen will scroll left.
         //how much the screen has moved in total, this value will be used to reset every element that is present
         //in this level if mario is to die.
@@ -191,7 +312,9 @@ public class LevelThree extends JPanel implements ActionListener, Runnable{
         gameLoop.addActionListener(doubleEyeFireball);
         gameLoop.addActionListener(secondDoubleEyeFireball);
         gameLoop.addActionListener(thirdDoubleEyeFireball);
-        gameLoop.addActionListener(thwomp);
+        gameLoop.addActionListener(firstThwomp);
+        gameLoop.addActionListener(thirdThwomp);
+        gameLoop.addActionListener(secondThwomp);
     }
     /*
     return gameLoop(timer) associated with the LevelThree object.
@@ -256,11 +379,21 @@ public class LevelThree extends JPanel implements ActionListener, Runnable{
         if(GameControl.getMario().getCollisionRectangle().intersects(thirdDoubleEyeFireball.getCollisionBox())){
             return true;
         }
-        //Checks to see if mario intersects the very left most thwomp.
-        if(GameControl.getMario().getCollisionRectangle().intersects(thwomp.getBounds())){
+        //Checks to see if mario intersects the very left most firstThwomp.
+        if(GameControl.getMario().getCollisionRectangle().intersects(firstThwomp.getBounds())){
             return true;
         }
-
+        //Checks to see if mario intersects the second to left thwomp.
+        if(GameControl.getMario().getCollisionRectangle().intersects(secondThwomp.getBounds())){
+            return true;
+        }
+        //Checks to see if mario intersects the very right most thwomp
+        if(GameControl.getMario().getCollisionRectangle().intersects(thirdThwomp.getBounds())){
+            return true;
+        }
+        if(GameControl.getMario().getCollisionRectangle().intersects(redBossDoor.getVictoryBox())){
+            isLevelComplete = true;
+        }
         return false; //Mario didn't touch anything he wasn't suppposed to.
 
     }
@@ -301,7 +434,10 @@ public class LevelThree extends JPanel implements ActionListener, Runnable{
         doubleEyeFireball.setX(doubleEyeFireball.getX() + total_origin_x_moved);
         secondDoubleEyeFireball.setX(secondDoubleEyeFireball.getX() + total_origin_x_moved);
         thirdDoubleEyeFireball.setX(thirdDoubleEyeFireball.getX() + total_origin_x_moved);
-        thwomp.setDx1(thwomp.getDx1() + total_origin_x_moved);
+        firstThwomp.setDx1(firstThwomp.getDx1() + total_origin_x_moved);
+        secondThwomp.setDx1(secondThwomp.getDx1() + total_origin_x_moved);
+        thirdThwomp.setDx1(thirdThwomp.getDx1() + total_origin_x_moved);
+        redBossDoor.setX(redBossDoor.getX() + total_origin_x_moved);
         total_origin_x_moved = 0;
         frameCounter = 0;
     }
@@ -316,11 +452,21 @@ public class LevelThree extends JPanel implements ActionListener, Runnable{
 
         frameCounter++; //every time the frame increases
 
-        if(checkCollision()){
+        if(!isLevelComplete) {
+            if (checkCollision()) {
 
-            //Gets the static mario from the main game frame and resets him to level three coordinates.
-            GameControl.getMario().resetMarioPosition(Level.Levels.THREE);
-            resetLevel(); //changes the level back to it's initial state.
+                lives.setNumberOfLives(lives.getNumberOfLives() - 1);
+                EventQueue.invokeLater(new Runnable() {
+
+                    public void run() {
+                        evilJestSound.playSound();
+                    }
+
+                });
+                //Gets the static mario from the main game frame and resets him to level three coordinates.
+                GameControl.getMario().resetMarioPosition(Level.Levels.THREE);
+                resetLevel(); //changes the level back to it's initial state.
+            }
         }
 
         //Once it has been 3 seconds (60 frames in 1 seconds 180 frames is therefore 3 seconds)
@@ -362,7 +508,11 @@ public class LevelThree extends JPanel implements ActionListener, Runnable{
             secondDoubleEyeFireball.setX(secondDoubleEyeFireball.getX() + screenScrollSpeed);
             thirdDoubleEyeFireball.setX(thirdDoubleEyeFireball.getX() + screenScrollSpeed);
 
-            thwomp.setDx1(thwomp.getDx1() + screenScrollSpeed);
+            firstThwomp.setDx1(firstThwomp.getDx1() + screenScrollSpeed);
+            secondThwomp.setDx1(secondThwomp.getDx1() + screenScrollSpeed);
+            thirdThwomp.setDx1(thirdThwomp.getDx1() + screenScrollSpeed);
+
+            redBossDoor.setX(redBossDoor.getX() + screenScrollSpeed);
 
             total_origin_x_moved -= screenScrollSpeed;
         }
@@ -428,14 +578,31 @@ public class LevelThree extends JPanel implements ActionListener, Runnable{
                 s_third_double_eye_fireball[2], s_third_double_eye_fireball[3],
                 null);
 
-        //Drawing all thwomps.
-        int[] s_thwomp_s_locations = thwomp.getSLocations();
+        //Drawing very most left thwomp.
+        int[] s_thwomp_s_locations = firstThwomp.getSLocations();
 
-        g.drawImage(thwomp.getAssociatedSpriteSheet(),
-                thwomp.getDx1(), thwomp.getDy1(),
-                thwomp.getDx2(), thwomp.getDy2(),
+        g.drawImage(firstThwomp.getAssociatedSpriteSheet(),
+                firstThwomp.getDx1(), firstThwomp.getDy1(),
+                firstThwomp.getDx2(), firstThwomp.getDy2(),
                 s_thwomp_s_locations[0], s_thwomp_s_locations[1],
                 s_thwomp_s_locations[2], s_thwomp_s_locations[3],
+                null);
+
+        //Drawing second to most left thwomp.
+        int[] s_second_thwomp_locations = secondThwomp.getSLocations();
+        g.drawImage(secondThwomp.getAssociatedSpriteSheet(),
+                secondThwomp.getDx1(), secondThwomp.getDy1(),
+                secondThwomp.getDx2(), secondThwomp.getDy2(),
+                s_second_thwomp_locations[0], s_second_thwomp_locations[1],
+                s_second_thwomp_locations[2], s_second_thwomp_locations[3],
+                null);
+
+        int[] s_third_thwomp_locations = thirdThwomp.getSLocations();
+        g.drawImage(thirdThwomp.getAssociatedSpriteSheet(),
+                thirdThwomp.getDx1(), thirdThwomp.getDy1(),
+                thirdThwomp.getDx2(), thirdThwomp.getDy2(),
+                s_third_thwomp_locations[0], s_third_thwomp_locations[1],
+                s_third_thwomp_locations[2], s_third_thwomp_locations[3],
                 null);
 
 
@@ -470,6 +637,18 @@ public class LevelThree extends JPanel implements ActionListener, Runnable{
                     temp.getSX2(), temp.getSY2(),
                     null);
         }
+        g.drawImage(CastleFortressSpriteSheet.getSpriteSheet(),
+                redBossDoor.getX(), redBossDoor.getY(),
+                redBossDoor.getWidth() + redBossDoor.getX(), redBossDoor.getHeight() + redBossDoor.getY(),
+                redBossDoor.getSX1(), redBossDoor.getSY1(),
+                redBossDoor.getSX2(), redBossDoor.getSY2(),
+                null);
+        g.setFont(lives.getFont());
+        g.setColor(Color.WHITE);
+        g.drawString(lives.getString(), lives.getX(), lives.getY());
+        g.setFont(levelTitle.getFont());
+        g.setColor(Color.WHITE);
+        g.drawString(levelTitle.getNameOfLevel(), levelTitle.getX(), levelTitle.getY());
 
         int s_mario[] = GameControl.getMario().getSLocations();
 
