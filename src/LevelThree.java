@@ -452,6 +452,7 @@ public class LevelThree extends JPanel implements ActionListener, Runnable{
 
         frameCounter++; //every time the frame increases
 
+
         if(!isLevelComplete) {
             if (checkCollision()) {
 

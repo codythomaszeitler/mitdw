@@ -36,8 +36,14 @@ public class Thwomp extends Rectangle implements ActionListener{
     private Animation current_frame;
     private int thwompDropDifferential; // How far away the drop discovery rectangle is vertically from the thwomp. (stats from (x,y))
     private Rectangle thwompDropRectangle; //rectangle that senses if mario has entered, if that is the case, the thwomp will start to descend.
+
     private void setThwompDropRectangle(Rectangle thwompDropRectangle){
         this.thwompDropRectangle = thwompDropRectangle;
+    }
+
+    //FOR DEBUGGING PURPOSES ONLY
+    public Rectangle getThwompDropRectangle(){
+        return thwompDropRectangle;
     }
 
     private int dropSpeed;
@@ -70,9 +76,9 @@ public class Thwomp extends Rectangle implements ActionListener{
         this.width = width;
         this.height = height;
 
-        thwompDropDifferential = GameControl.getMainGameFrame().getHeight() - height; //the standard drop differential is 2 times the height
+        thwompDropDifferential = GameControl.getMainGameFrame().getHeight(); //the standard drop differential is 2 times the height
         dropSpeed = 1;
-        thwompDropRectangle = new Rectangle(x - width, height, 3 * width, thwompDropDifferential);
+        thwompDropRectangle = new Rectangle(x - width, y, 3 * width, thwompDropDifferential);
         setBounds(x,y,width,height);
 
         current_frame = Animation.SITTING; //Starting frame of thwomp.
@@ -83,7 +89,7 @@ public class Thwomp extends Rectangle implements ActionListener{
         startingRectangle = new Rectangle(); //the rectangle that holds the data of the starting position of the thwomp.
         startingRectangle.setBounds(getBounds()); //setting the bounds to the original coordinates of the thwomp.
 
-        reset_y_coordinate = y + thwompDropDifferential; //Where the thwomp will stop dropping y coordinate wise.
+        reset_y_coordinate = y + thwompDropDifferential - height; //Where the thwomp will stop dropping y coordinate wise.
 
         setDx1(x);
         setDy1(y);
@@ -95,7 +101,6 @@ public class Thwomp extends Rectangle implements ActionListener{
     }
 
     public void actionPerformed(ActionEvent e){
-
 
 
 
@@ -185,8 +190,7 @@ public class Thwomp extends Rectangle implements ActionListener{
     public int getDx1(){return dx1;}
     public void setDx1(int dx1){
 
-
-        setThwompDropRectangle(new Rectangle(dx1 - width, height, 3 * width, thwompDropDifferential));
+        setThwompDropRectangle(new Rectangle(dx1 - width, y, 3 * width, thwompDropDifferential));
         dx2 = dx1 + width;
         setBounds(dx1, y, width, height);
         this.dx1 = dx1;
