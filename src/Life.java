@@ -6,7 +6,7 @@ import java.awt.Font;
 
 public class Life {
 
-    private static int number_of_lives = 10; ; //how many lives mario has left.
+    private static int number_of_lives  = -1; ; //how many lives mario has left.
     /*
     Gets the string that is to printed on the top most left of the game screen e.g: "Lives Remaining: " + number of lives remaining.
      */

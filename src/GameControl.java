@@ -10,7 +10,7 @@ public class GameControl implements ActionListener, KeyListener {
 
     //Enumeration type for difficulty.
     public enum Difficulty{
-        EASY(10), NORMAL(7), HARD(30);
+        SLOW(5), NORMAL(7), FAST(9);
 
         int diff;
 
@@ -26,6 +26,9 @@ public class GameControl implements ActionListener, KeyListener {
     //Difficultly for mario run speed.
     private static Difficulty game_difficulty = Difficulty.NORMAL;
     public static Difficulty getDifficulty (){return game_difficulty;}
+    public static void setDifficulty(Difficulty difficulty){
+       game_difficulty = difficulty;
+    }
 
     private Level currentLevel; //object that stores all the data to manipulate the level text on the top left of the screen.
     private Life currentLifes; //object that stores and manipulates all data associated with lives.
@@ -44,14 +47,16 @@ public class GameControl implements ActionListener, KeyListener {
     private String gameTitle; //title that is displayed on the physical screen.
     private int gameWindowWidth; //width of the physical screen.
     private int gameWindowHeight; //height of the phsyical screen.
-    private LevelOne levelOne; //level one object.
-    private LevelTwo levelTwo; //level two object.
-    private LevelThree levelThree; //level three object.
+    private BoxyBeach boxyBeach; //level one object.
+    private FranticForest franticForest; //level two object.
+    private InsidiousInferno insidiousInferno; //level three object.
     private Timer timer; //main game timer, activates every 1000 / 60 ms, a.k.a 60 frames per second.
+    private Timer paintTimer;
     private VictoryScreen victoryScreen;
     private Life lives;
     private LossScreen lossScreen;
-
+    private StartScreen startScreen;
+    private SpeedSelectScreen speedSelectScreen;
 
     public GameControl() {
 
@@ -66,17 +71,25 @@ public class GameControl implements ActionListener, KeyListener {
         //Instantiating life object, this is what's displayed ON SCREEN on the top left corner.
         currentLifes = new Life();
 
-        levelOne = new LevelOne(); //Instantiating level one object.
+        /*boxyBeach = new BoxyBeach(); //Instantiating level one object.
         currentLevel = new Level(Level.Levels.ONE); //Setting current level to level one.
-        currentLevel.setCurrentLevel(levelOne.getCurrentLevel()); //set current level one. (this seems redundant).
-        mainGameFrame.add(levelOne); //Adding the level one jPanel to the main game frame.
-        timer = levelOne.getTimer(); //Retrieving timer from level one object.
+        currentLevel.setCurrentLevel(boxyBeach.getCurrentLevel()); //set current level one. (this seems redundant).
+        mainGameFrame.add(boxyBeach); //Adding the level one jPanel to the main game frame.
+        timer = boxyBeach.getTimer(); //Retrieving timer from level one object.
         timer.addActionListener(mario); //Adding mario actionListener to timer so mario data is updated every timer clock cycle.
-        timer.addActionListener(this); //Repaint and level completion actionListener.
+        timer.addActionListener(this); //Repaint and level completion actionListener.*/
 
         /*currentLevel = new Level(Level.Levels.THREE);
         initializeLevelThree();
-        mainGameFrame.add(levelThree);*/
+        mainGameFrame.add(insidiousInferno);*/
+
+        currentLevel = new Level(Level.Levels.START_SCREEN);
+        startScreen = new StartScreen();
+        mainGameFrame.add(startScreen);
+        timer = new Timer(1000/60, this);
+        paintTimer = new Timer(1000/30, new PaintTimer());
+        mainGameFrame.addMouseMotionListener(startScreen);
+        mainGameFrame.addMouseListener(startScreen);
 
 
 
@@ -85,15 +98,26 @@ public class GameControl implements ActionListener, KeyListener {
         //get a blank screen.
         mainGameFrame.setVisible(true);
     }
+    private void initializeLevelOne(){
+
+        boxyBeach = new BoxyBeach(); //Instantiating level one object.
+        currentLevel.setCurrentLevel(boxyBeach.getCurrentLevel()); //set current level one. (this seems redundant).
+        mainGameFrame.add(boxyBeach); //Adding the level one jPanel to the main game frame.
+        timer = boxyBeach.getTimer(); //Retrieving timer from level one object.
+        timer.addActionListener(mario); //Adding mario actionListener to timer so mario data is updated every timer clock cycle.
+        timer.addActionListener(this); //Repaint and level completion actionListener.
+    }
+
+
     //Setting up level two to be the next thing executed by the timer and shown by the screen.
     private void initializeLevelTwo(){
 
-        levelTwo = new LevelTwo(); //creating level two.
+        franticForest = new FranticForest(); //creating level two.
         currentLevel.setCurrentLevel(Level.Levels.TWO); //setting the current level to level two
         //setting the main game timer to level two's specific game timer.
         //This has a actionListener already specified within it that updates everything in level two data wise
         // minus mario and checking if the level needs to be switched out.
-        timer = levelTwo.getGameLoop();
+        timer = franticForest.getGameLoop();
 
         //Taking the timer retrieved from the level two object's timer and making it so the timer updates
         //mario's coordinates based on the last arrow key pressed.
@@ -103,16 +127,18 @@ public class GameControl implements ActionListener, KeyListener {
     //Setting up level three to be the next thing executed by the timer and shown by the screen.
     private void initializeLevelThree(){
 
-        levelThree = new LevelThree(); //creaing level three.
+        insidiousInferno = new InsidiousInferno(); //creaing level three.
         currentLevel.setCurrentLevel(Level.Levels.THREE); //setting current level to level three.
-        timer = levelThree.getGameLoop(); //retrieving timer from level three object that has been set up.
+        timer = insidiousInferno.getGameLoop(); //retrieving timer from level three object that has been set up.
         timer.addActionListener(mario); //making it so mario's data is updated with the newly retried timer.
         timer.addActionListener(this);
 
     }
-
+    //The only thing the main game timer should be doing is updating the graphics.
+    //All game logic should be done within a thread.
     public void startGame(){
-       timer.start();
+        timer.start();
+        paintTimer.start();
     }
     public void stopGame(){
         timer.stop();
@@ -125,14 +151,15 @@ public class GameControl implements ActionListener, KeyListener {
     //should update whatever is on the screen. (NOTE not force).
     public void actionPerformed(ActionEvent e){
 
-        if(lives.getNumberOfLives() == 0){
+
+        if(lives.getNumberOfLives() == 0){ //you have ran out of lives.
             timer.stop();
             lossScreen = new LossScreen();
 
             if(currentLevel.getCurrentLevel() == Level.Levels.ONE){
 
-                levelOne.getJungleSong().stopSound();
-                mainGameFrame.remove(levelOne);
+                boxyBeach.getJungleSong().stopSound();
+                mainGameFrame.remove(boxyBeach);
                 mainGameFrame.revalidate();
                 mainGameFrame.add(lossScreen);
                 mainGameFrame.revalidate();
@@ -140,8 +167,8 @@ public class GameControl implements ActionListener, KeyListener {
                 timer.start();
             }
             else if(currentLevel.getCurrentLevel() == Level.Levels.TWO){
-                levelTwo.getMushroomDanceSong().stopSound();
-                mainGameFrame.remove(levelTwo);
+                franticForest.getMushroomDanceSong().stopSound();
+                mainGameFrame.remove(franticForest);
                 mainGameFrame.revalidate();
                 mainGameFrame.add(lossScreen);
                 mainGameFrame.revalidate();
@@ -149,8 +176,8 @@ public class GameControl implements ActionListener, KeyListener {
                 timer.start();
             }
             else if(currentLevel.getCurrentLevel() == Level.Levels.THREE){
-                levelThree.getSwordFightSong().stopSound();
-                mainGameFrame.remove(levelThree);
+                insidiousInferno.getSwordFightSong().stopSound();
+                mainGameFrame.remove(insidiousInferno);
                 mainGameFrame.revalidate();
                 mainGameFrame.add(lossScreen);
                 mainGameFrame.revalidate();
@@ -158,25 +185,66 @@ public class GameControl implements ActionListener, KeyListener {
                 timer.start();
             }
             else {
-                System.out.println("ERROR BRANCH IN ACTION PERFROMED OF GAME CONTROL");
+                System.out.println("ERROR BRANCH IN ACTION PERFORMED OF GAME CONTROL");
             }
 
 
+        }
+        //what will be displayed as soon as the user opens up the game.
+        if(currentLevel.getCurrentLevel() == Level.Levels.START_SCREEN){
+
+            if(startScreen.getHasDifficultyBeenSelected()){
+                timer.stop();
+                currentLevel.setCurrentLevel(Level.Levels.SELECT_SCREEN);
+                //initializeLevelOne();
+                speedSelectScreen = new SpeedSelectScreen();
+
+                mainGameFrame.removeMouseListener(startScreen);
+                mainGameFrame.removeMouseMotionListener(startScreen);
+                mainGameFrame.remove(startScreen);
+                mainGameFrame.revalidate();
+                //mario.setMarioPosition(Level.Levels.ONE);
+                mainGameFrame.addMouseMotionListener(speedSelectScreen);
+                mainGameFrame.addMouseListener(speedSelectScreen);
+                mainGameFrame.add(speedSelectScreen);
+                mainGameFrame.revalidate();
+                mainGameFrame.repaint();
+                timer.start();
+            }
+
+        }
+        //what will be displayed once the user has selected a speed.
+        if(currentLevel.getCurrentLevel() == Level.Levels.SELECT_SCREEN){
+
+            if(speedSelectScreen.getHasSpeedBeenSelected()){
+                timer.stop();
+                currentLevel.setCurrentLevel(Level.Levels.ONE);
+                initializeLevelOne();
+                mainGameFrame.removeMouseListener(speedSelectScreen);
+                mainGameFrame.removeMouseMotionListener(speedSelectScreen);
+                mainGameFrame.remove(speedSelectScreen);
+                mainGameFrame.revalidate();
+                mario.setMarioPosition(Level.Levels.ONE);
+                mainGameFrame.add(boxyBeach);
+                mainGameFrame.revalidate();
+                mainGameFrame.repaint();
+                timer.start();
+            }
         }
 
         //If the current level of the game is level one, enter here.
         if(currentLevel.getCurrentLevel() == Level.Levels.ONE) {
             //Enters here when a boolean flag has been activated once level one has been completed. (getIsLevelComplete)
             //This flag is set once mario enters the door of level one.
-            if (levelOne.getIsLevelComplete() && currentLevel.getCurrentLevel() == Level.Levels.ONE) {
+            if (boxyBeach.getIsLevelComplete() && currentLevel.getCurrentLevel() == Level.Levels.ONE) {
 
-                levelOne.getJungleSong().stopSound();
+                boxyBeach.getJungleSong().stopSound();
                 timer.stop(); //stops the current main game timer.
                 initializeLevelTwo(); //private function that sets up level two.
-                mainGameFrame.remove(levelOne); //removes level one from the main frame.
+                mainGameFrame.remove(boxyBeach); //removes level one from the main frame.
                 mainGameFrame.revalidate(); //needed to switch between two jPanels
                 mario.setMarioPosition(Level.Levels.TWO);
-                mainGameFrame.add(levelTwo); //puts level two into the frame.
+                mainGameFrame.add(franticForest); //puts level two into the frame.
                 mainGameFrame.revalidate(); //needed to switch between two jPanels
                 mainGameFrame.repaint(); //forces the frame to display something (well not force, but suggests it to the swing architecture)
                 timer.start(); //starts the timer associated with level two. This is updated within initializeLevelTwo()
@@ -186,14 +254,14 @@ public class GameControl implements ActionListener, KeyListener {
         if(currentLevel.getCurrentLevel() == Level.Levels.TWO) {
             //Enters here when a boolean flag has been activated once level two has been completed. (getIsLevelComplete)
             //This flag is set once mario enters the end door of level two.
-            if (levelTwo.getIsLevelComplete()) {
+            if (franticForest.getIsLevelComplete()) {
                 mario.setMarioPosition(Level.Levels.THREE);
-                levelTwo.getMushroomDanceSong().stopSound();
+                franticForest.getMushroomDanceSong().stopSound();
                 timer.stop(); //stops the current main game timer.
                 initializeLevelThree(); //private function that sets up level three.
-                mainGameFrame.remove(levelTwo); //removes level two from the main frame.
+                mainGameFrame.remove(franticForest); //removes level two from the main frame.
                 mainGameFrame.revalidate(); //needs to switch between two jPanels
-                mainGameFrame.add(levelThree); //puts level three into the frame.
+                mainGameFrame.add(insidiousInferno); //puts level three into the frame.
 
                 mainGameFrame.revalidate(); //needs to switch between two jPanels.
                 mainGameFrame.repaint(); //suggest heavily to the swing architecture that it should repaint on the EDT.
@@ -202,14 +270,14 @@ public class GameControl implements ActionListener, KeyListener {
         }
         if(currentLevel.getCurrentLevel() == Level.Levels.THREE){
 
-            if(levelThree.getIsLevelComplete()){
+            if(insidiousInferno.getIsLevelComplete()){
 
                 currentLevel.setCurrentLevel(Level.Levels.VICTORY);
 
-                levelThree.getSwordFightSong().stopSound();
+                insidiousInferno.getSwordFightSong().stopSound();
                 timer.stop();
                 victoryScreen = new VictoryScreen();
-                mainGameFrame.remove(levelThree);
+                mainGameFrame.remove(insidiousInferno);
                 mainGameFrame.revalidate();
                 mainGameFrame.add(victoryScreen);
                 mainGameFrame.revalidate();
@@ -217,7 +285,7 @@ public class GameControl implements ActionListener, KeyListener {
                 timer.start();
             }
         }
-        mainGameFrame.repaint(); //updates the main game frame.
+        //mainGameFrame.repaint(); //updates the main game frame.
 
     }
 
@@ -266,5 +334,15 @@ public class GameControl implements ActionListener, KeyListener {
     public void keyReleased(KeyEvent e){}
     //Forced to implement since it implements KeyListener.
     public void keyTyped(KeyEvent e){}
+
+    private class PaintTimer implements  ActionListener{
+
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            mainGameFrame.repaint();
+        }
+    }
 
 }

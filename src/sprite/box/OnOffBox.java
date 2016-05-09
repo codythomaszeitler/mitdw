@@ -14,7 +14,7 @@ import java.awt.image.BufferedImage;
 Class that holds all data and manipulation of data to be able to create and use an on-off box.
 An on-off box is a box that is switched from an off to an on position when Mario collides with the
 box.
-Currently used in: LevelTwo, frantic forest.
+Currently used in: FranticForest, frantic forest.
 
  */
 
