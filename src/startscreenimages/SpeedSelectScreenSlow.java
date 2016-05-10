@@ -14,7 +14,7 @@ public class SpeedSelectScreenSlow {
     public SpeedSelectScreenSlow(){
 
         try{
-            image = ImageIO.read(new File("src/CodyGameScreenSpeedsSlow.png"));
+            image = ImageIO.read(new File("src/images/CodyGameScreenSpeedsSlow.png"));
         }
         catch(IOException e){
             e.printStackTrace();

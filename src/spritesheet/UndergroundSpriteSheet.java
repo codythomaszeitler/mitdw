@@ -16,7 +16,7 @@ public class UndergroundSpriteSheet {
     public UndergroundSpriteSheet(){
 
         try{
-            underground_sprite_sheet = ImageIO.read(new File("src/SNES - Super Mario World - Underground Tiles.png"));
+            underground_sprite_sheet = ImageIO.read(new File("src/images/SNES - Super Mario World - Underground Tiles.png"));
         }
         catch (IOException e){
             e.printStackTrace();

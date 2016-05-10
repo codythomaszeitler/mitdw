@@ -16,7 +16,7 @@ public class SpeedSelectScreenInitial {
     public SpeedSelectScreenInitial(){
 
         try{
-            image = ImageIO.read(new File("src/CodyGameScreenSpeeds.png"));
+            image = ImageIO.read(new File("src/images/CodyGameScreenSpeeds.png"));
         }
         catch(IOException e){
             e.printStackTrace();

@@ -18,7 +18,7 @@ public class StartScreenHard {
     public StartScreenHard(){
 
         try{
-            image = ImageIO.read(new File("src/CodyGameScreenHARD.png"));
+            image = ImageIO.read(new File("src/images/CodyGameScreenHARD.png"));
         }
         catch(IOException e){
             e.printStackTrace();

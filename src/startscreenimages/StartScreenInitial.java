@@ -15,7 +15,7 @@ public class StartScreenInitial {
     public StartScreenInitial(){
 
         try{
-            image = ImageIO.read(new File("src/CodyGameScreen1.png"));
+            image = ImageIO.read(new File("src/images/CodyGameScreen1.png"));
         }
         catch(IOException e){
             e.printStackTrace();

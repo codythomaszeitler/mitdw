@@ -34,7 +34,7 @@ public class LivelyMeadowSong {
 
     public LivelyMeadowSong(){
 
-        soundFile = new File("src/Lively Meadow (Victory Fanfare and Song).wav");
+        soundFile = new File("src/sounds/Lively Meadow (Victory Fanfare and Song).wav");
 
 
     }

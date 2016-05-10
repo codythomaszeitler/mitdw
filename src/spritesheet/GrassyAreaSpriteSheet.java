@@ -16,7 +16,7 @@ public class GrassyAreaSpriteSheet {
     public GrassyAreaSpriteSheet(){
 
         try{
-            grassyAreaSpriteSheet = ImageIO.read(new File("src/SNES - Grassy Area 1.png"));
+            grassyAreaSpriteSheet = ImageIO.read(new File("src/images/SNES - Grassy Area 1.png"));
         }
         catch (IOException e){
             e.printStackTrace();

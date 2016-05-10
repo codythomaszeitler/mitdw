@@ -16,7 +16,7 @@ public class ForestTilesSpriteSheet {
     public ForestTilesSpriteSheet(){
 
         try{
-            forestTilesSpriteSheet = ImageIO.read(new File("src/SNES - Super Mario World - Forest and Athletic Tiles.png"));
+            forestTilesSpriteSheet = ImageIO.read(new File("src/images/SNES - Super Mario World - Forest and Athletic Tiles.png"));
         }
         catch (IOException e){
             e.printStackTrace();

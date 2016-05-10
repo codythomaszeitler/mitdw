@@ -42,7 +42,7 @@ public class EvilJestSound {
 
     public EvilJestSound(){
 
-        soundFile = new File("src/eviljest.wav");
+        soundFile = new File("src/sounds/eviljest.wav");
 
 
     }

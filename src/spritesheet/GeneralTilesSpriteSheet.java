@@ -15,7 +15,7 @@ public class GeneralTilesSpriteSheet {
     public GeneralTilesSpriteSheet(){
 
         try{
-            generalTilesSpriteSheet = ImageIO.read(new File("src/SNES - Super Mario World - General Tiles.png"));
+            generalTilesSpriteSheet = ImageIO.read(new File("src/images/SNES - Super Mario World - General Tiles.png"));
         }
         catch (IOException e){
             e.printStackTrace();

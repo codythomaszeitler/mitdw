@@ -15,7 +15,7 @@ public class BackgroundDarkGrayCastleMiddleTileSpriteSheet {
     public BackgroundDarkGrayCastleMiddleTileSpriteSheet(){
 
         try{
-            background_tiles_level_three_sprite_sheet = ImageIO.read(new File("src/BackgroundTilesLevelThree.png"));
+            background_tiles_level_three_sprite_sheet = ImageIO.read(new File("src/images/BackgroundTilesLevelThree.png"));
         }
         catch(IOException e){
             e.printStackTrace();

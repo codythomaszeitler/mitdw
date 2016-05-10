@@ -42,7 +42,7 @@ public class MushroomDanceSong {
 
     public MushroomDanceSong(){
 
-        soundFile = new File("src/mushroom_dance.wav");
+        soundFile = new File("src/sounds/mushroom_dance.wav");
 
 
     }

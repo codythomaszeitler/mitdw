@@ -16,7 +16,7 @@ public class MarioSpriteSheet {
     public MarioSpriteSheet(){
 
         try{
-            mario_sprite_sheet = ImageIO.read(new File("src/SNES - Super Mario World - Mario copy.png"));
+            mario_sprite_sheet = ImageIO.read(new File("src/images/SNES - Super Mario World - Mario copy.png"));
         }
         catch (IOException e){
             e.printStackTrace();

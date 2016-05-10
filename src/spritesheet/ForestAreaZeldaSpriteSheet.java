@@ -17,7 +17,7 @@ public class ForestAreaZeldaSpriteSheet {
     public ForestAreaZeldaSpriteSheet(){
 
         try{
-            forestAreaZeldaSpriteSheet = ImageIO.read(new File("src/SNES - Forest Area 1.png"));
+            forestAreaZeldaSpriteSheet = ImageIO.read(new File("src/images/SNES - Forest Area 1.png"));
         }
         catch (IOException e){
             e.printStackTrace();

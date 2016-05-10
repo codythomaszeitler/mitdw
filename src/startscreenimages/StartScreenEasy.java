@@ -21,7 +21,7 @@ public class StartScreenEasy {
     public StartScreenEasy(){
 
         try{
-            startScreenEasyImage = ImageIO.read(new File("src/CodyGameScreenEASY.png"));
+            startScreenEasyImage = ImageIO.read(new File("src/images/CodyGameScreenEASY.png"));
         }
         catch(IOException e){
             e.printStackTrace();

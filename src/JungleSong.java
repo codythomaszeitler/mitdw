@@ -40,7 +40,7 @@ public class JungleSong {
 
     public JungleSong(){
 
-        soundFile = new File("src/Jungle.wav");
+        soundFile = new File("src/sounds/Jungle.wav");
 
 
     }

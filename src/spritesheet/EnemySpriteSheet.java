@@ -16,7 +16,7 @@ public class EnemySpriteSheet {
     public EnemySpriteSheet(){
 
         try{
-            enemy_sprite_sheet = ImageIO.read(new File("src/SNES-Super-Mario-World-Enemies.png"));
+            enemy_sprite_sheet = ImageIO.read(new File("src/images/SNES-Super-Mario-World-Enemies.png"));
         }
         catch (IOException e){
             e.printStackTrace();

@@ -14,7 +14,7 @@ public class SpeedSelectScreenNormal {
     public SpeedSelectScreenNormal(){
 
         try{
-            image = ImageIO.read(new File("src/CodyGameScreenSpeedsNormal.png"));
+            image = ImageIO.read(new File("src/images/CodyGameScreenSpeedsNormal.png"));
         }
         catch(IOException e){
             e.printStackTrace();

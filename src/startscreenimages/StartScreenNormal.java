@@ -19,7 +19,7 @@ public class StartScreenNormal {
     public StartScreenNormal(){
 
         try{
-            image = ImageIO.read(new File("src/CodyGameScreenNORMAL.png"));
+            image = ImageIO.read(new File("src/images/CodyGameScreenNORMAL.png"));
         }
         catch(IOException e){
             e.printStackTrace();

@@ -16,7 +16,7 @@ public class CastleFortressSpriteSheet {
     public CastleFortressSpriteSheet(){
 
         try{
-            castle_fortress_sprite_sheet = ImageIO.read(new File("src/SNES - Super Mario World - Castle Fortress Tiles copy.png"));
+            castle_fortress_sprite_sheet = ImageIO.read(new File("src/images/SNES - Super Mario World - Castle Fortress Tiles copy.png"));
         }
         catch(IOException e){
             e.printStackTrace();

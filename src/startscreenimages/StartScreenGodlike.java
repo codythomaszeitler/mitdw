@@ -19,7 +19,7 @@ public class StartScreenGodlike {
     public StartScreenGodlike(){
 
         try{
-            image = ImageIO.read(new File("src/CodyGameScreenGODLIKE.png"));
+            image = ImageIO.read(new File("src/images/CodyGameScreenGODLIKE.png"));
         }
         catch(IOException e){
             e.printStackTrace();

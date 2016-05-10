@@ -27,12 +27,9 @@ public class SwordFightSong {
             clip.loop(Clip.LOOP_CONTINUOUSLY);
 
         }
-
-
         catch (Exception e){
             e.printStackTrace();
         }
-
 
     }
 
@@ -42,8 +39,7 @@ public class SwordFightSong {
 
     public SwordFightSong(){
 
-        soundFile = new File("src/Swordfight.wav");
-
+        soundFile = new File("src/sounds/Swordfight.wav");
 
     }
 

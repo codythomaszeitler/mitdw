@@ -16,7 +16,7 @@ public class GhostHouseSpriteSheet {
     public GhostHouseSpriteSheet(){
 
         try{
-            ghost_house_sprite_sheet = ImageIO.read(new File("src/SNES - Super Mario World - Ghost House Tiles.png"));
+            ghost_house_sprite_sheet = ImageIO.read(new File("src/images/SNES - Super Mario World - Ghost House Tiles.png"));
         }
         catch (IOException e){
             e.printStackTrace();
