@@ -123,7 +123,7 @@ public class Thwomp extends Rectangle implements ActionListener{
             setDy1(getDy1() + temp_speed);
             dropSpeed = temp_speed;
         }
-        //If the thwomp is in the Raising animation, start moving it up to it's startign position.
+        //If the thwomp is in the Raising animation, start moving it up to it'sBottomPatrollingGreenKoopaLocations startign position.
         if(current_frame == Animation.RISING){
             setDy1(getDy1() - dropSpeed);
         }

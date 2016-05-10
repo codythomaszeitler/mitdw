@@ -68,7 +68,7 @@ public class GameControl implements ActionListener, KeyListener {
         //Game Frame is a JFrame.
         mainGameFrame = new GameFrame(gameTitle, gameWindowWidth, gameWindowHeight);
         mainGameFrame.addKeyListener(this); //making it so the frame is listening for a keyListener based on the code listed in this class.
-        //Instantiating life object, this is what's displayed ON SCREEN on the top left corner.
+        //Instantiating life object, this is what'sBottomPatrollingGreenKoopaLocations displayed ON SCREEN on the top left corner.
         currentLifes = new Life();
 
         /*boxyBeach = new BoxyBeach(); //Instantiating level one object.
@@ -114,13 +114,13 @@ public class GameControl implements ActionListener, KeyListener {
 
         franticForest = new FranticForest(); //creating level two.
         currentLevel.setCurrentLevel(Level.Levels.TWO); //setting the current level to level two
-        //setting the main game timer to level two's specific game timer.
+        //setting the main game timer to level two'sBottomPatrollingGreenKoopaLocations specific game timer.
         //This has a actionListener already specified within it that updates everything in level two data wise
         // minus mario and checking if the level needs to be switched out.
         timer = franticForest.getGameLoop();
 
-        //Taking the timer retrieved from the level two object's timer and making it so the timer updates
-        //mario's coordinates based on the last arrow key pressed.
+        //Taking the timer retrieved from the level two object'sBottomPatrollingGreenKoopaLocations timer and making it so the timer updates
+        //mario'sBottomPatrollingGreenKoopaLocations coordinates based on the last arrow key pressed.
         timer.addActionListener(mario);
         timer.addActionListener(this);
     }
@@ -130,7 +130,7 @@ public class GameControl implements ActionListener, KeyListener {
         insidiousInferno = new InsidiousInferno(); //creaing level three.
         currentLevel.setCurrentLevel(Level.Levels.THREE); //setting current level to level three.
         timer = insidiousInferno.getGameLoop(); //retrieving timer from level three object that has been set up.
-        timer.addActionListener(mario); //making it so mario's data is updated with the newly retried timer.
+        timer.addActionListener(mario); //making it so mario'sBottomPatrollingGreenKoopaLocations data is updated with the newly retried timer.
         timer.addActionListener(this);
 
     }

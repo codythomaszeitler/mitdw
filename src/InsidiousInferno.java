@@ -107,6 +107,17 @@ public class InsidiousInferno extends JPanel implements ActionListener, Runnable
 
         redBossDoor = new RedBossDoor(4275, 100, 125, 200);
 
+        //Done to avoid null pointer exception, if there is a null pointer exception, you will begin to paint
+        // in "dirty" regions.
+        s_double_eye_fireball = doubleEyeFireball.getSLocations();
+        s_second_double_eye_fireball = secondDoubleEyeFireball.getSLocations();
+        s_third_double_eye_fireball = thirdDoubleEyeFireball.getSLocations();
+        s_thwomp_s_locations = firstThwomp.getSLocations();
+        s_second_thwomp_locations = secondThwomp.getSLocations();
+        s_third_thwomp_locations = thirdThwomp.getSLocations();
+        s_mario = GameControl.getMario().getSLocations();
+
+
         isLevelComplete = false;
         //Initializing sound object.
         swordFightSong = new SwordFightSong();
@@ -484,7 +495,7 @@ public class InsidiousInferno extends JPanel implements ActionListener, Runnable
                 });
                 //Gets the static mario from the main game frame and resets him to level three coordinates.
                 GameControl.getMario().resetMarioPosition(Level.Levels.THREE);
-                resetLevel(); //changes the level back to it's initial state.
+                resetLevel(); //changes the level back to it'sBottomPatrollingGreenKoopaLocations initial state.
             }
         }
 

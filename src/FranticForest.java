@@ -65,6 +65,7 @@ public class FranticForest extends JPanel implements ActionListener{
     public Rectangle getVictoryBox(){return victoryRectangle;}
 
     private LevelTitle levelTitle;
+
     private Life lives;
 
     //sound object that is playing during the level.
@@ -74,10 +75,10 @@ public class FranticForest extends JPanel implements ActionListener{
     }
     private EvilJestSound evilJestSound;
 
-    int s_mario[] ;
-    int s_locations_top_patrolling_koopa[] ;
-    int s_locations_middle_patrolling_koopa[];
-    int s[];
+    int sMarioLocations[] ;
+    int sTopPatrollingGreenKoopaLocations[] ;
+    int sMiddlePatrollingGreenKoopaLocations[];
+    int sBottomPatrollingGreenKoopaLocations[];
 
 
     private Timer levelTwoGameLoop;
@@ -96,6 +97,8 @@ public class FranticForest extends JPanel implements ActionListener{
     }
 
     public FranticForest(){
+
+
 
         //Creaing all of the list that will be available during execution.
         doorList = new DoorList();
@@ -205,6 +208,12 @@ public class FranticForest extends JPanel implements ActionListener{
             }
 
         });
+        //Done to avoid null pointer exception, if there is a null pointer exception, you will begin to paint
+        // in "dirty" regions.
+        sMarioLocations = GameControl.getMario().getSLocations() ;
+        sTopPatrollingGreenKoopaLocations = topPatrollingKoopa.getSLocations();
+        sMiddlePatrollingGreenKoopaLocations = middlePatrollingKoopa.getSLocations();
+        sBottomPatrollingGreenKoopaLocations = bottomPatrollingKoopa.getSLocations();
         //Creating the timer that will allow the game to run. Will be passed to the GameControl object at run time.
         initalizeGameLoop();
 
@@ -456,34 +465,34 @@ public class FranticForest extends JPanel implements ActionListener{
                 null);
 
 
-        //int s[] = bottomPatrollingKoopa.getSLocations();
+        //int sBottomPatrollingGreenKoopaLocations[] = bottomPatrollingKoopa.getSLocations();
 
         g.drawImage(EnemySpriteSheet.getEnemySpriteSheet(),
                 bottomPatrollingKoopa.getX(),bottomPatrollingKoopa.getY(),
                 bottomPatrollingKoopa.getWidth() + bottomPatrollingKoopa.getX(),
                 bottomPatrollingKoopa.getHeight() +  bottomPatrollingKoopa.getY(),
-                s[0], s[1],
-                s[2], s[3],
+                sBottomPatrollingGreenKoopaLocations[0], sBottomPatrollingGreenKoopaLocations[1],
+                sBottomPatrollingGreenKoopaLocations[2], sBottomPatrollingGreenKoopaLocations[3],
                 null);
 
-        //int s_locations_middle_patrolling_koopa[] = middlePatrollingKoopa.getSLocations();
+        //int sMiddlePatrollingGreenKoopaLocations[] = middlePatrollingKoopa.getSLocations();
 
         g.drawImage(EnemySpriteSheet.getEnemySpriteSheet(),
                 middlePatrollingKoopa.getX(),middlePatrollingKoopa.getY(),
                 middlePatrollingKoopa.getWidth() + middlePatrollingKoopa.getX(),
                 middlePatrollingKoopa.getHeight() +  middlePatrollingKoopa.getY(),
-                s_locations_middle_patrolling_koopa[0],  s_locations_middle_patrolling_koopa[1],
-                s_locations_middle_patrolling_koopa[2],  s_locations_middle_patrolling_koopa[3],
+                sMiddlePatrollingGreenKoopaLocations[0],  sMiddlePatrollingGreenKoopaLocations[1],
+                sMiddlePatrollingGreenKoopaLocations[2],  sMiddlePatrollingGreenKoopaLocations[3],
                 null);
 
-        //int s_locations_top_patrolling_koopa[] = topPatrollingKoopa.getSLocations();
+        //int sTopPatrollingGreenKoopaLocations[] = topPatrollingKoopa.getSLocations();
 
         g.drawImage(EnemySpriteSheet.getEnemySpriteSheet(),
                 topPatrollingKoopa.getX(), topPatrollingKoopa.getY(),
                 topPatrollingKoopa.getWidth() +  topPatrollingKoopa.getX(),
                 topPatrollingKoopa.getHeight() +   topPatrollingKoopa.getY(),
-                s_locations_top_patrolling_koopa[0],  s_locations_top_patrolling_koopa[1],
-                s_locations_top_patrolling_koopa[2],  s_locations_top_patrolling_koopa[3],
+                sTopPatrollingGreenKoopaLocations[0],  sTopPatrollingGreenKoopaLocations[1],
+                sTopPatrollingGreenKoopaLocations[2],  sTopPatrollingGreenKoopaLocations[3],
                 null);
 
         g.setFont(lives.getFont());
@@ -500,17 +509,17 @@ public class FranticForest extends JPanel implements ActionListener{
                 GameControl.getMario().getX(), GameControl.getMario().getY(),
                 GameControl.getMario().getWidth() + GameControl.getMario().getX(),
                 GameControl.getMario().getHeight() + GameControl.getMario().getY(),
-                s_mario[0], s_mario[1],
-                s_mario[2], s_mario[3],
+                sMarioLocations[0], sMarioLocations[1],
+                sMarioLocations[2], sMarioLocations[3],
                 null);
 
 
     }
     public void actionPerformed(ActionEvent e){
-        s_mario = GameControl.getMario().getSLocations();
-        s_locations_top_patrolling_koopa = topPatrollingKoopa.getSLocations();
-        s_locations_middle_patrolling_koopa = middlePatrollingKoopa.getSLocations();
-        s = bottomPatrollingKoopa.getSLocations();
+        sMarioLocations = GameControl.getMario().getSLocations();
+        sTopPatrollingGreenKoopaLocations = topPatrollingKoopa.getSLocations();
+        sMiddlePatrollingGreenKoopaLocations = middlePatrollingKoopa.getSLocations();
+        sBottomPatrollingGreenKoopaLocations = bottomPatrollingKoopa.getSLocations();
 
         collisionBoxList.set(topPatrollingKoopa.getIndexInLinkedList(),
                 new CollisionBox(topPatrollingKoopa.getCollisionRectangle()));

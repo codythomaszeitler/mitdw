@@ -466,7 +466,7 @@ public class LevelThree extends JPanel implements ActionListener, Runnable{
                 });
                 //Gets the static mario from the main game frame and resets him to level three coordinates.
                 GameControl.getMario().resetMarioPosition(Level.Levels.THREE);
-                resetLevel(); //changes the level back to it's initial state.
+                resetLevel(); //changes the level back to it'sBottomPatrollingGreenKoopaLocations initial state.
             }
         }
 

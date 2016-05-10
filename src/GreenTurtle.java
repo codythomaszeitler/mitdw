@@ -146,7 +146,7 @@ public class GreenTurtle implements ActionListener {
             }
         }
 
-        //Whatever current frame is, return the sub-image (based on s coordinates) that associates with the current frame.
+        //Whatever current frame is, return the sub-image (based on sBottomPatrollingGreenKoopaLocations coordinates) that associates with the current frame.
         if(current_frame == Animation.STANDING_RIGHT){
 
             s_locations[0] = standingRight.getSX1();
@@ -157,7 +157,7 @@ public class GreenTurtle implements ActionListener {
             return s_locations;
 
         }
-        //Whatever current frame is, return the sub-image (based on s coordinates) that associates with the current frame.
+        //Whatever current frame is, return the sub-image (based on sBottomPatrollingGreenKoopaLocations coordinates) that associates with the current frame.
         else if (current_frame == Animation. WALKING_RIGHT){
 
             s_locations[0] = walkingRight.getSX1();
@@ -167,7 +167,7 @@ public class GreenTurtle implements ActionListener {
 
             return s_locations;
         }
-        //Whatever current frame is, return the sub-image (based on s coordinates) that associates with the current frame.
+        //Whatever current frame is, return the sub-image (based on sBottomPatrollingGreenKoopaLocations coordinates) that associates with the current frame.
         else if (current_frame == Animation.WALKING_LEFT){
 
             s_locations[0] = walkingLeft.getSX1();
@@ -177,7 +177,7 @@ public class GreenTurtle implements ActionListener {
 
             return s_locations;
         }
-        //Whatever current frame is, return the sub-image (based on s coordinates) that associates with the current frame.
+        //Whatever current frame is, return the sub-image (based on sBottomPatrollingGreenKoopaLocations coordinates) that associates with the current frame.
         else if (current_frame == Animation.STANDING_LEFT){
 
             s_locations[0] = standingLeft.getSX1();
@@ -207,13 +207,13 @@ public class GreenTurtle implements ActionListener {
     /*
     The environment is the collection of rectangles.
     Whenever the koops moves it will check if it is colliding with any of these rectangles.
-    If the koops does collide with any of these rectangles the green koops will reverse it's direction
+    If the koops does collide with any of these rectangles the green koops will reverse it'sBottomPatrollingGreenKoopaLocations direction
     completely.
      */
     private LinkedList environment; //The environment in question.
     public LinkedList getEnvironment(){return environment;} //Returns the environment associated with the koopa.
     //Sets the environment, removes the koopa itself from the environment (since the koopa itself is part of
-    //the environment, and if it was not removed the koopa will infinitely turn back and forth in it's initial spot)
+    //the environment, and if it was not removed the koopa will infinitely turn back and forth in it'sBottomPatrollingGreenKoopaLocations initial spot)
     public void setEnvironment(LinkedList<Rectangle> environment, int index_of_turtle_collision_box){
 
         LinkedList<Rectangle> collision_boxes = (LinkedList) environment.clone();

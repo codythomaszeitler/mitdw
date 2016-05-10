@@ -84,15 +84,16 @@ public class BoxyBeach extends JPanel implements ActionListener, Runnable{
     private boolean hasLoaded;
     public boolean getHasLoaded(){ return hasLoaded; }
 
-    private int s_mario[];
-    private int [] green_turtle_lower_side_s_locations;
-    private int[] green_turtle_top_side_s_locations;
-    private int[] red_turtle2_s_locations;
-    private int[] red_turtle_s_locations;
-    private int[] s;
+    private int[] sMarioLocations;
+    private int[] sBottomGreenTurtleLocations;
+    private int[] sTopGreenTurtleLocations;
+    private int[] sSecondRedTurtleLocations;
+    private int[] sRedTurtleLocations;
+    private int[] sGreenTurtleLocations;
 
 
     public BoxyBeach(){
+
         background_image_gray_middle = new BackGroundImageGrayMiddle(0,0,50, 50);
         background_image_box = new BackGroundImageBox(0,0,50,50);
         lightBrownDirtMiddleBlock = new LightBrownDirtMiddle(0,0,50,50);
@@ -169,6 +170,15 @@ public class BoxyBeach extends JPanel implements ActionListener, Runnable{
         redTurtle2.setEnvironment(collision_box_list, redTurtle2.getIndexInLinkedList());
         greenTurtleTopSide.setEnvironment(collision_box_list, greenTurtleTopSide.getIndexInLinkedList());
         greenTurtleLowerSide.setEnvironment(collision_box_list,  greenTurtleLowerSide.getIndexInLinkedList());
+
+        //This is done to avoid a null pointer exception at initial runtime.
+        sMarioLocations = GameControl.getMario().getSLocations();
+        sBottomGreenTurtleLocations = greenTurtleLowerSide.getSLocations();
+        sTopGreenTurtleLocations = greenTurtleTopSide.getSLocations();
+        sSecondRedTurtleLocations = redTurtle2.getSLocations();
+        sRedTurtleLocations = redTurtle.getSLocations();
+        sGreenTurtleLocations = greenTurtle.getSLocations();
+
     }
     public Rectangle getVictoryBox(){
         return redBossDoor.getVictoryBox();
@@ -231,13 +241,12 @@ public class BoxyBeach extends JPanel implements ActionListener, Runnable{
     //Controls where the dynamic  collision boxes are on the map.
     public void actionPerformed(ActionEvent e){
 
-        s_mario = GameControl.getMario().getSLocations();
-        green_turtle_lower_side_s_locations = greenTurtleLowerSide.getSLocations();
-        green_turtle_top_side_s_locations = greenTurtleTopSide.getSLocations();
-        red_turtle2_s_locations = redTurtle2.getSLocations();
-        red_turtle_s_locations = redTurtle.getSLocations();
-        s = greenTurtle.getSLocations();
-
+        sMarioLocations = GameControl.getMario().getSLocations();
+        sBottomGreenTurtleLocations = greenTurtleLowerSide.getSLocations();
+        sTopGreenTurtleLocations = greenTurtleTopSide.getSLocations();
+        sSecondRedTurtleLocations = redTurtle2.getSLocations();
+        sRedTurtleLocations = redTurtle.getSLocations();
+        sGreenTurtleLocations = greenTurtle.getSLocations();
 
         if(!isLevelComplete) {
             //Runs to see if the static variable mario has collided with any of the boxes within this stage.
@@ -294,12 +303,9 @@ public class BoxyBeach extends JPanel implements ActionListener, Runnable{
                 greenTurtleLowerSide.getWidth(),  greenTurtleLowerSide.getHeight());
 
         collision_box_list.set( greenTurtleLowerSide.getIndexInLinkedList(), greenTurtleLowerSideCollisionBox);
-
-
     }
 
-
-    //Painting in here is pretty simple (even though there's a lot of code down there.)
+    //Painting in here is pretty simple (even though there'sGreenTurtleLocations a lot of code down there.)
     //Every object you see on screen in level one
     //All the painting should be done on the main thread.
     public void paintComponent(Graphics g){
@@ -444,63 +450,63 @@ public class BoxyBeach extends JPanel implements ActionListener, Runnable{
                 redBossDoor.getSX2(), redBossDoor.getSY2(),
                 null);
 
-        //int[]  s = greenTurtle.getSLocations();
+        //int[]  sGreenTurtleLocations = greenTurtle.getSLocations();
         g.drawImage(EnemySpriteSheet.getEnemySpriteSheet(),
                 greenTurtle.getX(),greenTurtle.getY(),
                 greenTurtle.getWidth() + greenTurtle.getX(),
                 greenTurtle.getHeight() +  greenTurtle.getY(),
-                s[0], s[1],
-                s[2], s[3],
+                sGreenTurtleLocations[0], sGreenTurtleLocations[1],
+                sGreenTurtleLocations[2], sGreenTurtleLocations[3],
                 null);
 
-        //int[] red_turtle_s_locations = redTurtle.getSLocations();
+        //int[] sRedTurtleLocations = redTurtle.getSLocations();
 
         g.drawImage(EnemySpriteSheet.getEnemySpriteSheet(),
                 redTurtle.getX(), redTurtle.getY(),
                 redTurtle.getWidth() + redTurtle.getX(),
                 redTurtle.getHeight() +  redTurtle.getY(),
-                red_turtle_s_locations[0], red_turtle_s_locations[1],
-                red_turtle_s_locations[2], red_turtle_s_locations[3],
+                sRedTurtleLocations[0], sRedTurtleLocations[1],
+                sRedTurtleLocations[2], sRedTurtleLocations[3],
                 null);
 
-        //int[] red_turtle2_s_locations = redTurtle2.getSLocations();
+        //int[] sSecondRedTurtleLocations = redTurtle2.getSLocations();
 
         g.drawImage(EnemySpriteSheet.getEnemySpriteSheet(),
                 redTurtle2.getX(), redTurtle2.getY(),
                 redTurtle2.getWidth() + redTurtle2.getX(),
                 redTurtle2.getHeight() +  redTurtle2.getY(),
-                red_turtle2_s_locations[0], red_turtle2_s_locations[1],
-                red_turtle2_s_locations[2], red_turtle2_s_locations[3],
+                sSecondRedTurtleLocations[0], sSecondRedTurtleLocations[1],
+                sSecondRedTurtleLocations[2], sSecondRedTurtleLocations[3],
                 null);
 
-        //int[] green_turtle_top_side_s_locations = greenTurtleTopSide.getSLocations();
+        //int[] sTopGreenTurtleLocations = greenTurtleTopSide.getSLocations();
 
         g.drawImage(EnemySpriteSheet.getEnemySpriteSheet(),
                 greenTurtleTopSide.getX(), greenTurtleTopSide.getY(),
                 greenTurtleTopSide.getWidth() + greenTurtleTopSide.getX(),
                 greenTurtleTopSide.getHeight() +  greenTurtleTopSide.getY(),
-                green_turtle_top_side_s_locations[0], green_turtle_top_side_s_locations[1],
-                green_turtle_top_side_s_locations[2], green_turtle_top_side_s_locations[3],
+                sTopGreenTurtleLocations[0], sTopGreenTurtleLocations[1],
+                sTopGreenTurtleLocations[2], sTopGreenTurtleLocations[3],
                 null);
 
-        //int [] green_turtle_lower_side_s_locations = greenTurtleLowerSide.getSLocations();
+        //int [] sBottomGreenTurtleLocations = greenTurtleLowerSide.getSLocations();
 
         g.drawImage(EnemySpriteSheet.getEnemySpriteSheet(),
                 greenTurtleLowerSide.getX(), greenTurtleLowerSide.getY(),
                 greenTurtleLowerSide.getWidth() + greenTurtleLowerSide.getX(),
                 greenTurtleLowerSide.getHeight() +  greenTurtleLowerSide.getY(),
-                green_turtle_lower_side_s_locations[0], green_turtle_lower_side_s_locations[1],
-                green_turtle_lower_side_s_locations[2], green_turtle_lower_side_s_locations[3],
+                sBottomGreenTurtleLocations[0], sBottomGreenTurtleLocations[1],
+                sBottomGreenTurtleLocations[2], sBottomGreenTurtleLocations[3],
                 null);
 
-        //int s_mario[] = GameControl.getMario().getSLocations();
+        //int sMarioLocations[] = GameControl.getMario().getSLocations();
 
         g.drawImage(MarioSpriteSheet.getSpriteSheet(),
                 GameControl.getMario().getX(), GameControl.getMario().getY(),
                 GameControl.getMario().getWidth() + GameControl.getMario().getX(),
                 GameControl.getMario().getHeight() + GameControl.getMario().getY(),
-                s_mario[0], s_mario[1],
-                s_mario[2], s_mario[3],
+                sMarioLocations[0], sMarioLocations[1],
+                sMarioLocations[2], sMarioLocations[3],
                 null);
 
     }

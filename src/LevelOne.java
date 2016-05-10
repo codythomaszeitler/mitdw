@@ -266,7 +266,7 @@ public class LevelOne extends JPanel implements ActionListener{
 
     }
 
-    //Painting in here is pretty simple (even though there's a lot of code down there.)
+    //Painting in here is pretty simple (even though there'sBottomPatrollingGreenKoopaLocations a lot of code down there.)
     //Every object you see on screen in level one
 
     public void paintComponent(Graphics g){

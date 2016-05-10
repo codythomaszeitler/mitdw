@@ -25,7 +25,7 @@ public class Mario implements ActionListener{
         if(mario_direction == Direction.STOP){
             //do nothing. This just keeps us from the error branch when starting the game/level.
         }
-        //User has hit the left arrow key. Mario is now moving left until collision or until an input that's not left is inputted.
+        //User has hit the left arrow key. Mario is now moving left until collision or until an input that'sBottomPatrollingGreenKoopaLocations not left is inputted.
         else if(mario_direction ==  Direction.LEFT){
             int x = getX() - GameControl.getDifficulty().getDifficulty();
             setX(x);
@@ -52,7 +52,7 @@ public class Mario implements ActionListener{
             System.out.println("Printing mario direciton: " + getMarioDirection() );
         }
     }
-    private Rectangle collision_rectangle; //mario's collision rectangle (dynamically changes to mario's position on screen)
+    private Rectangle collision_rectangle; //mario'sBottomPatrollingGreenKoopaLocations collision rectangle (dynamically changes to mario'sBottomPatrollingGreenKoopaLocations position on screen)
 
     int x_location; // x coordinate of mario
     int y_location; // y coordinate of mario
@@ -84,7 +84,7 @@ public class Mario implements ActionListener{
     Array[3] = sy2
 
     These four coordinates make up a sub-image of the sprite sheet.
-    So if it's in STANDING_RIGHT enumeration animation, it will return the sub-image
+    So if it'sBottomPatrollingGreenKoopaLocations in STANDING_RIGHT enumeration animation, it will return the sub-image
     coordinates within the array. Use these coordinates within the paint method
     of the levels to properly paint mario in the correct animation.
 
