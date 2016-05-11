@@ -1,3 +1,4 @@
+import sprite.DarkBrownWood;
 import sprite.Flowers;
 import sprite.Tree;
 import sprite.box.OnOffBox;
@@ -32,11 +33,11 @@ public class FranticForest extends JPanel implements ActionListener{
     private RedExclamationBox redExclamationBox;
 
     //All of the borders of the screen.
-    private WoodCircleBox topBorder;
-    private WoodCircleBox leftBorder;
-    private WoodCircleBox bottomBorder;
-    private WoodCircleBox rightBorder;
-    private WoodCircleBox offsetBottom;
+    private DarkBrownWood topBorder;
+    private DarkBrownWood leftBorder;
+    private DarkBrownWood bottomBorder;
+    private DarkBrownWood rightBorder;
+    private DarkBrownWood offsetBottom;
 
     //Random unpositioned trees.
     private Tree tree1;
@@ -165,13 +166,13 @@ public class FranticForest extends JPanel implements ActionListener{
         flowersBackground = new Flowers(0,0,100,100);
 
         //Initializing all border objects.
-        topBorder = new WoodCircleBox(0,0,50,50);
-        leftBorder = new WoodCircleBox(0,0,50,50);
-        bottomBorder = new WoodCircleBox(
+        topBorder = new DarkBrownWood(0,0,50,50);
+        leftBorder = new DarkBrownWood(0,0,50,50);
+        bottomBorder = new DarkBrownWood(
                 0, GameControl.getMainGameFrame().getHeight() - 75, 50, 50);
-        rightBorder = new WoodCircleBox(
+        rightBorder = new DarkBrownWood(
                  GameControl.getMainGameFrame().getWidth() - 50, 0, 50, 50);
-        offsetBottom = new WoodCircleBox(250,900, 50, 50);
+        offsetBottom = new DarkBrownWood(250,900, 50, 50);
 
         initializeCollisionBoxes();
         //Initializng and setting all values for green turtles.
@@ -323,7 +324,7 @@ public class FranticForest extends JPanel implements ActionListener{
 
         //Painting the top border.
         for (int i = 0; i < GameControl.getMainGameFrame().getWidth(); i = i + topBorder.getWidth()) {
-            g.drawImage(topBorder.getAssociatedSpriteSheet(),
+            g.drawImage(topBorder.getSpriteSheet(),
                     topBorder.getDx1() + i, topBorder.getDy1(),
                     topBorder.getDx2() + i, topBorder.getDy2(),
                     topBorder.getSX1(), topBorder.getSY1(),
@@ -332,7 +333,7 @@ public class FranticForest extends JPanel implements ActionListener{
         }
         //Painting the left  border.
         for (int i = 0; i < GameControl.getMainGameFrame().getHeight(); i = i + leftBorder.getHeight()) {
-            g.drawImage(leftBorder.getAssociatedSpriteSheet(),
+            g.drawImage(leftBorder.getSpriteSheet(),
                     leftBorder.getDx1(), leftBorder.getDy1() + i,
                     leftBorder.getDx2(), leftBorder.getDy2() + i,
                     leftBorder.getSX1(), leftBorder.getSY1(),
@@ -341,7 +342,7 @@ public class FranticForest extends JPanel implements ActionListener{
         }
         //Painting the bottom border.
         for (int i = 0; i < GameControl.getMainGameFrame().getWidth(); i = i + bottomBorder.getWidth()) {
-            g.drawImage(bottomBorder.getAssociatedSpriteSheet(),
+            g.drawImage(bottomBorder.getSpriteSheet(),
                     bottomBorder.getDx1() + i, bottomBorder.getDy1(),
                     bottomBorder.getDx2() + i, bottomBorder.getDy2(),
                     bottomBorder.getSX1(), bottomBorder.getSY1(),
@@ -349,14 +350,14 @@ public class FranticForest extends JPanel implements ActionListener{
                     null);
         }
         for (int i = 0; i < GameControl.getMainGameFrame().getHeight(); i = i + rightBorder.getHeight()) {
-            g.drawImage(rightBorder.getAssociatedSpriteSheet(),
+            g.drawImage(rightBorder.getSpriteSheet(),
                     rightBorder.getDx1(), rightBorder.getDy1() + i,
                     rightBorder.getDx2(), rightBorder.getDy2() + i,
                     rightBorder.getSX1(),rightBorder.getSY1(),
                     rightBorder.getSX2(), rightBorder.getSY2(),
                     null);
         }
-        g.drawImage(offsetBottom.getAssociatedSpriteSheet(),
+        g.drawImage(offsetBottom.getSpriteSheet(),
                 offsetBottom.getDx1(), offsetBottom.getDy1(),
                 offsetBottom.getDx2(), offsetBottom.getDy2(),
                 offsetBottom.getSX1(),offsetBottom.getSY1(),
@@ -425,7 +426,7 @@ public class FranticForest extends JPanel implements ActionListener{
 
         //Painting all Red ExclamationBoxes
         /*int sLocationOfTopLeftRedExclamationBox[] = topLeftRedExclamationBox.getSLocations();
-        g.drawImage(topLeftRedExclamationBox.getAssociatedSpriteSheet(),
+        g.drawImage(topLeftRedExclamationBox.getSpriteSheet(),
                 topLeftRedExclamationBox.getDx1(), topLeftRedExclamationBox.getDy1(),
                 topLeftRedExclamationBox.getDx2(), topLeftRedExclamationBox.getDy2(),
                 sLocationOfTopLeftRedExclamationBox[0], sLocationOfTopLeftRedExclamationBox[1],
@@ -433,7 +434,7 @@ public class FranticForest extends JPanel implements ActionListener{
                 null);
 
         int sLocationsOfRightSideOfTopLeftRedExclamationBox[] = rightSideOfTopLeftRedExclamationBox.getSLocations();
-        g.drawImage(topLeftRedExclamationBox.getAssociatedSpriteSheet(),
+        g.drawImage(topLeftRedExclamationBox.getSpriteSheet(),
                 rightSideOfTopLeftRedExclamationBox.getDx1(), rightSideOfTopLeftRedExclamationBox.getDy1(),
                 rightSideOfTopLeftRedExclamationBox.getDx2(), rightSideOfTopLeftRedExclamationBox.getDy2(),
                 sLocationsOfRightSideOfTopLeftRedExclamationBox[0], sLocationsOfRightSideOfTopLeftRedExclamationBox[1],

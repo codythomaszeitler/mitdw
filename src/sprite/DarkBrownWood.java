@@ -1,14 +1,14 @@
-package sprite.box;
+package sprite;
 
 import spritesheet.GeneralTilesSpriteSheet;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /**
- * Created by Cody Thomas Zeitler on 12/15/2015.
+ * Created by Cody Thomas Zeitler on 5/10/2016.
  */
-public class WoodCircleBox {
-
+public class DarkBrownWood {
     public BufferedImage getSpriteSheet(){
         return GeneralTilesSpriteSheet.getSpriteSheet();
     }
@@ -39,40 +39,38 @@ public class WoodCircleBox {
     public void setHeight(int height){this.height = height;}
 
     public int dx1;
-    public int getDx1(){return dx1;}
+    public int getDx1(){return x;}
     public void setDx1(int dx1){this.dx1 = dx1;}
 
     public int dy1;
-    public int getDy1(){return dy1;}
+    public int getDy1(){return y;}
     public void setDy1(int dy1){this.dy1 = dy1;}
 
     public int dx2;
-    public int getDx2(){return dx2;}
+    public int getDx2(){return x + width;}
     public void setDx2(int dx2){this.dx2 = dx2;}
 
     public int dy2;
-    public int getDy2(){return dy2;}
+    public int getDy2(){return y + height;}
     public void setDy2(int dy2){this.dy2 = dy2;}
 
-    //47 , 240 --- 63, 256
+     public DarkBrownWood(int x, int y, int width, int height){
 
-    public WoodCircleBox(int x, int y, int width, int height){
+         this.x = x;
+         this.y = y;
+         this.width = width;
+         this.height = height;
+         //112, 137 to 127, 144
+         SX_1 = 112;
+         SY_1 = 127;
+         SX_2 = 128;
+         SY_2 = 145;
 
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-
-        SX_1 = 47; // 52
-        SY_1 = 240; // 39
-        SX_2 = 63;
-        SY_2 = 256;
-
-        setDx1(x);
-        setDy1(y);
-        setDx2(x + width);
-        setDy2(y + height);
-    }
+         setDx1(x);
+         setDy1(y);
+         setDx2(x + width);
+         setDy2(y + height);
+     }
 
     public int[] getSLocations(){
 
@@ -85,4 +83,10 @@ public class WoodCircleBox {
 
         return s_locations;
     }
+
+    public Rectangle getCollisionBox(){
+            return new Rectangle(x,y,width,height);
+        }
+
+
 }
